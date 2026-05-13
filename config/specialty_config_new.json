@@ -1,0 +1,43 @@
+{
+  "specialties": [
+    {
+      "id": "allergy_and_immunology",
+      "label": "Allergy and Immunology",
+      "subspecialties": [
+        {
+          "id": "allergy_and_immunology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Anaphylaxis Management",
+            "Asthma Phenotyping (Th2 high/low)",
+            "Primary Immunodeficiencies (CVID/SCID)",
+            "Food Allergy & OIT",
+            "Atopic Dermatitis",
+            "Hereditary Angioedema",
+            "Drug Desensitization (AERD)",
+            "Eosinophilic Esophagitis",
+            "Allergic Rhinitis Immunotherapy",
+            "Chronic Spontaneous Urticaria",
+            "Contact Dermatitis (Patch testing)",
+            "Insect Venom Hypersensitivity",
+            "Mastocytosis",
+            "Occupational Asthma",
+            "Hypereosinophilic Syndromes"
+          ],
+          "top_journals": [
+            "J Allergy Clin Immunol",
+            "Allergy",
+            "Lancet Respir Med",
+            "J Immunol",
+            "Pediatr Allergy Immunol",
+            "Clin Exp Allergy",
+            "Ann Allergy Asthma Immunol",
+            "Curr Opin Allergy Clin Immunol",
+            "JACI: In Practice",
+            "Immunity"
+          ]
+        }
+      ]
+    }
+  ]
+}

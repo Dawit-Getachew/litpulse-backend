@@ -1,0 +1,2206 @@
+{
+  "specialties": [
+    {
+      "id": "allergy_and_immunology",
+      "label": "Allergy and Immunology",
+      "subspecialties": [
+        {
+          "id": "allergy_and_immunology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Anaphylaxis Management",
+            "Asthma Phenotyping (Th2 high/low)",
+            "Primary Immunodeficiencies (CVID/SCID)",
+            "Food Allergy & OIT",
+            "Atopic Dermatitis",
+            "Hereditary Angioedema",
+            "Drug Desensitization (AERD)",
+            "Eosinophilic Esophagitis",
+            "Allergic Rhinitis Immunotherapy",
+            "Chronic Spontaneous Urticaria",
+            "Contact Dermatitis (Patch testing)",
+            "Insect Venom Hypersensitivity",
+            "Mastocytosis",
+            "Occupational Asthma",
+            "Hypereosinophilic Syndromes"
+          ],
+          "top_journals": [
+            "J Allergy Clin Immunol",
+            "Allergy",
+            "Lancet Respir Med",
+            "J Immunol",
+            "Pediatr Allergy Immunol",
+            "Clin Exp Allergy",
+            "Ann Allergy Asthma Immunol",
+            "Curr Opin Allergy Clin Immunol",
+            "JACI: In Practice",
+            "Immunity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anesthesiology",
+      "label": "Anesthesiology",
+      "subspecialties": [
+        {
+          "id": "anesthesiology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Airway Management Algorithms",
+            "Inhalational Anesthetics Pharmacology",
+            "Neuromuscular Blockade & Reversal",
+            "Neuraxial Anesthesia (Spinal/Epidural)",
+            "Malignant Hyperthermia Protocols",
+            "Hemodynamic Monitoring (TEE/Arterial)",
+            "Massive Transfusion Protocols",
+            "Preoperative Cardiac Risk Stratification",
+            "Pediatric Anesthesia Basics",
+            "Obstetric Anesthesia (Preeclampsia/Labor)",
+            "Local Anesthetic Toxicity (LAST)",
+            "Post-Anesthesia Care (PACU)",
+            "Ambulatory Anesthesia Criteria",
+            "Regional Nerve Blocks",
+            "Intravenous Anesthetics (Propofol/Ketamine)"
+          ],
+          "top_journals": [
+            "Anesthesiology",
+            "Br J Anaesth",
+            "Anaesthesia",
+            "Anesth Analg",
+            "Pain",
+            "Reg Anesth Pain Med",
+            "Eur J Anaesthesiol",
+            "Can J Anaesth",
+            "Acta Anaesthesiol Scand",
+            "Curr Opin Anaesthesiol"
+          ]
+        },
+        {
+          "id": "anesthesiology_critical_care_medicine",
+          "label": "Critical Care Medicine",
+          "topics": [
+            "Sepsis Resuscitation Bundles",
+            "ARDS Ventilation Strategies (Prone/Low TV)",
+            "Shock State Differentiation",
+            "Renal Replacement Therapy (CRRT)",
+            "ICP Monitoring & Management",
+            "Trauma Resuscitation",
+            "Nutritional Support in ICU",
+            "Delirium Management (ABCDEF Bundle)",
+            "Ventilator-Associated Pneumonia",
+            "Coagulopathy Management",
+            "Post-Cardiac Arrest TTM",
+            "Brain Death Determination",
+            "End-of-Life Care",
+            "ICU Toxicology",
+            "Mechanical Circulatory Support and ECMO"
+          ],
+          "top_journals": [
+            "Am J Respir Crit Care Med",
+            "Crit Care Med",
+            "Intensive Care Med",
+            "Lancet Respir Med",
+            "Chest",
+            "J Trauma Acute Care Surg",
+            "Shock",
+            "Critical Care",
+            "Ann Intensive Care",
+            "ASAIO J"
+          ]
+        },
+        {
+          "id": "anesthesiology_pain_medicine",
+          "label": "Pain Medicine",
+          "topics": [
+            "Spinal Cord Stimulation",
+            "Complex Regional Pain Syndrome (CRPS)",
+            "Radiofrequency Ablation",
+            "Opioid Stewardship & Risk Mitigation",
+            "Neuropathic Pain Pharmacotherapy",
+            "Cancer Pain Management (WHO Ladder)",
+            "Epidural Steroid Injections",
+            "Sympathetic Nerve Blocks",
+            "Myofascial Pain Syndrome",
+            "Headache/Migraine Interventions",
+            "Vertebroplasty/Kyphoplasty",
+            "Sacroiliac Joint Dysfunction",
+            "Discogenic Pain",
+            "Psychology of Pain (CBT)",
+            "Regenerative Medicine Injections"
+          ],
+          "top_journals": [
+            "PAIN",
+            "Reg Anesth Pain Med",
+            "J Pain",
+            "Pain Med",
+            "Eur J Pain",
+            "Clin J Pain",
+            "Pain Physician",
+            "Anaesth Crit Care Pain Med",
+            "J Pain Symptom Manage",
+            "Molecular Pain"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cardiac_surgery",
+      "label": "Cardiac Surgery",
+      "subspecialties": [
+        {
+          "id": "cardiac_surgery_congenital_diseases",
+          "label": "Congenital Diseases",
+          "topics": [
+            "Transposition of Great Arteries Repair",
+            "Tetralogy of Fallot Repair",
+            "Hypoplastic Left Heart Syndrome (Norwood/Fontan)",
+            "Atrioventricular Septal Defect Repair",
+            "Total Anomalous Pulmonary Venous Return",
+            "Coarctation of the Aorta Repair",
+            "Ebstein Anomaly (Cone Procedure)",
+            "Truncus Arteriosus Repair",
+            "VSD/ASD Closure Techniques",
+            "Pulmonary Atresia Management",
+            "ROSS Procedure",
+            "Arterial Switch Operation",
+            "Congenital Mitral Valve Repair",
+            "Hybrid Procedures",
+            "Adult Congenital Heart Disease Surgery"
+          ],
+          "top_journals": [
+            "World J Pediatr Congenit Heart Surg",
+            "Cardiol Young",
+            "Congenit Heart Dis",
+            "Pediatr Cardiol",
+            "J Thorac Cardiovasc Surg",
+            "Ann Thorac Surg",
+            "Eur J Cardiothorac Surg",
+            "Semin Thorac Cardiovasc Surg",
+            "Oper Tech Thorac Cardiovasc Surg",
+            "JACC: Advances"
+          ]
+        },
+        {
+          "id": "cardiac_surgery_aortic_surgery",
+          "label": "Aortic Surgery",
+          "topics": [
+            "Aortic Root Replacement (Bentall)",
+            "Valve-Sparing Root Replacement (David/Yacoub)",
+            "Ascending Aorta Replacement",
+            "Hemiarch/Total Arch Replacement",
+            "Frozen Elephant Trunk Technique",
+            "TEVAR (Thoracic Endovascular Aortic Repair)",
+            "Type A Dissection Repair",
+            "Type B Dissection Management",
+            "Thoracoabdominal Aneurysm Repair",
+            "Connective Tissue Disorders (Marfan/Loeys-Dietz)",
+            "Deep Hypothermic Circulatory Arrest",
+            "Cerebral Protection Strategies",
+            "Aortic Valve Repair",
+            "Hybrid Aortic Arch Repair",
+            "Infected Aortic Graft Management"
+          ],
+          "top_journals": [
+            "Ann Cardiothorac Surg",
+            "AORTA",
+            "J Thorac Cardiovasc Surg",
+            "Ann Thorac Surg",
+            "Eur J Cardiothorac Surg",
+            "J Endovasc Ther",
+            "J Card Surg",
+            "Innovations",
+            "Semin Thorac Cardiovasc Surg",
+            "Interact Cardiovasc Thorac Surg"
+          ]
+        },
+        {
+          "id": "cardiac_surgery_general_cardiac_surgery",
+          "label": "General Cardiac Surgery",
+          "topics": [
+            "Coronary Artery Bypass Grafting (On/Off Pump)",
+            "Mitral Valve Repair/Replacement",
+            "Aortic Valve Replacement (Surgical)",
+            "Tricuspid Valve Surgery",
+            "Atrial Fibrillation Ablation (Maze)",
+            "Pericardiectomy",
+            "Cardiac Tumors (Myxoma)",
+            "Septal Myectomy",
+            "Post-Infarction VSD Repair",
+            "LV Aneurysm Repair",
+            "Minimally Invasive Valve Surgery",
+            "Reoperative Cardiac Surgery",
+            "Sternotomy Infection Management",
+            "Cardiopulmonary Bypass Management",
+            "Myocardial Protection (Cardioplegia)"
+          ],
+          "top_journals": [
+            "J Thorac Cardiovasc Surg",
+            "Ann Thorac Surg",
+            "Eur J Cardiothorac Surg",
+            "J Card Surg",
+            "Ann Cardiothorac Surg",
+            "Innovations",
+            "Semin Thorac Cardiovasc Surg",
+            "Oper Tech Thorac Cardiovasc Surg",
+            "Asian Cardiovasc Thorac Ann",
+            "Heart Surg Forum"
+          ]
+        },
+        {
+          "id": "cardiac_surgery_mechanical_circulatory_support_ecmo",
+          "label": "Mechanical Circulatory Support/ECMO",
+          "topics": [
+            "VA-ECMO Cannulation & Management",
+            "VV-ECMO Principles",
+            "Impella Insertion & Management",
+            "Intra-Aortic Balloon Pump",
+            "Left Ventricular Assist Devices (LVADs - HeartMate 3)",
+            "Right Ventricular Assist Devices",
+            "Total Artificial Heart",
+            "ECMO for Cardiogenic Shock",
+            "ECMO for Respiratory Failure",
+            "Anticoagulation for MCS",
+            "Bridge to Transplant vs Destination Therapy",
+            "Device Thrombosis & Hemolysis",
+            "Right Heart Failure Management in LVAD",
+            "Driveline Infection",
+            "Weaning from MCS"
+          ],
+          "top_journals": [
+            "ASAIO J",
+            "J Heart Lung Transplant",
+            "Artif Organs",
+            "Perfusion",
+            "Int J Artif Organs",
+            "Ann Thorac Surg",
+            "J Thorac Cardiovasc Surg",
+            "Eur J Heart Fail",
+            "Crit Care Med",
+            "Circ Heart Fail"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cardiology",
+      "label": "Cardiology",
+      "subspecialties": [
+        {
+          "id": "cardiology_general_cardiology",
+          "label": "General Cardiology",
+          "topics": [
+            "Acute Coronary Syndromes (STEMI/NSTEMI)",
+            "Stable Ischemic Heart Disease",
+            "Heart Failure Management (GDMT)",
+            "Atrial Fibrillation Management",
+            "Valvular Heart Disease Assessment",
+            "Hypertension Guidelines",
+            "Dyslipidemia Management",
+            "Preoperative Cardiac Risk Assessment",
+            "Pericarditis & Effusion",
+            "Infective Endocarditis",
+            "Adult Congenital Heart Disease Basics",
+            "Cardio-Oncology",
+            "Cardiac Amyloidosis",
+            "Syncope Evaluation",
+            "Primary/Secondary Prevention"
+          ],
+          "top_journals": [
+            "J Am Coll Cardiol",
+            "Circulation",
+            "Eur Heart J",
+            "JACC",
+            "Nat Rev Cardiol",
+            "Heart",
+            "Am J Cardiol",
+            "Clin Cardiol",
+            "Int J Cardiol",
+            "Eur J Prev Cardiol"
+          ]
+        },
+        {
+          "id": "cardiology_advanced_echocardiography",
+          "label": "Advanced Echocardiography",
+          "topics": [
+            "Transthoracic Echo (TTE) Quantitation",
+            "Transesophageal Echo (TEE) Protocols",
+            "3D Echocardiography",
+            "Speckle Tracking & Strain Imaging",
+            "Diastolic Function Assessment",
+            "Stress Echocardiography",
+            "Prosthetic Valve Assessment",
+            "Interventional Echo (TAVR/MitraClip guidance)",
+            "Right Ventricular Function",
+            "Congenital Echo",
+            "Contrast Echocardiography",
+            "Intraoperative TEE",
+            "Pericardial Disease Imaging",
+            "Cardio-Oncology Imaging",
+            "Echo in Shock/Hemodynamics"
+          ],
+          "top_journals": [
+            "J Am Soc Echocardiogr",
+            "Eur Heart J Cardiovasc Imaging",
+            "JACC Cardiovasc Imaging",
+            "Circ Cardiovasc Imaging",
+            "J Echocardiogr",
+            "Echocardiography",
+            "CASE",
+            "Ultrasound Med Biol",
+            "Clin Res Cardiol",
+            "Int J Cardiovasc Imaging"
+          ]
+        },
+        {
+          "id": "cardiology_electrophysiology",
+          "label": "Electrophysiology",
+          "topics": [
+            "Atrial Fibrillation Ablation (PVI)",
+            "SVT Ablation",
+            "Ventricular Tachycardia Ablation",
+            "Pacemaker Implantation",
+            "ICD Implantation",
+            "CRT (Resynchronization) Therapy",
+            "Lead Extraction",
+            "Channelopathies (Long QT/Brugada)",
+            "Syncope & Tilt Table",
+            "Anticoagulation for Arrhythmias",
+            "Left Atrial Appendage Closure (Watchman)",
+            "His Bundle/Left Bundle Pacing",
+            "Sudden Cardiac Death Risk Stratification",
+            "Intracardiac Echocardiography",
+            "Mapping Systems (3D)"
+          ],
+          "top_journals": [
+            "Heart Rhythm",
+            "JACC Clin Electrophysiol",
+            "Circ Arrhythm Electrophysiol",
+            "Europace",
+            "J Cardiovasc Electrophysiol",
+            "Pacing Clin Electrophysiol",
+            "Heart Rhythm O2",
+            "EP Europace",
+            "Arrhythm Electrophysiol Rev",
+            "J Interv Card Electrophysiol"
+          ]
+        },
+        {
+          "id": "cardiology_interventional_cardiology",
+          "label": "Interventional Cardiology",
+          "topics": [
+            "PCI (Percutaneous Coronary Intervention)",
+            "STEMI Management/Primary PCI",
+            "Complex High-Risk Indicated Procedures (CHIP)",
+            "CTO (Chronic Total Occlusion) Techniques",
+            "Intravascular Imaging (IVUS/OCT)",
+            "Coronary Physiology (FFR/iFR)",
+            "Cardiogenic Shock (Impella/Balloon Pump)",
+            "Access Site Management (Radial vs Femoral)",
+            "Antiplatelet Therapy (DAPT)",
+            "Stent Thrombosis/Restenosis",
+            "Rotational/Orbital Atherectomy",
+            "Bypass Graft Interventions",
+            "Complication Management (Perforation/Dissection)",
+            "Peripheral Intervention Basics",
+            "Structural Basics"
+          ],
+          "top_journals": [
+            "JACC Cardiovasc Interv",
+            "Circ Cardiovasc Interv",
+            "EuroIntervention",
+            "Catheter Cardiovasc Interv",
+            "JSCAI",
+            "J Interv Cardiol",
+            "Coron Artery Dis",
+            "Struct Heart",
+            "Cardiovasc Revasc Med",
+            "PCRE-Journal"
+          ]
+        },
+        {
+          "id": "cardiology_structural_cardiology",
+          "label": "Structural Cardiology",
+          "topics": [
+            "TAVR (Transcatheter Aortic Valve Replacement)",
+            "MitraClip (TEER)",
+            "TMVR (Mitral Replacement)",
+            "Tricuspid Valve Interventions (TriClip)",
+            "Left Atrial Appendage Occlusion",
+            "ASD/PFO Closure",
+            "Paravalvular Leak Closure",
+            "Alcohol Septal Ablation",
+            "Valve-in-Valve Procedures",
+            "CT Planning for Structural Heart",
+            "Large Bore Access & Closure",
+            "Cerebral Embolic Protection",
+            "Transseptal Puncture Techniques",
+            "VSD Closure (Post-MI/Congenital)",
+            "Pulmonary Valve Implantation (Melody/Sapien)"
+          ],
+          "top_journals": [
+            "EuroIntervention",
+            "JACC Cardiovasc Interv",
+            "Struct Heart",
+            "Circ Cardiovasc Interv",
+            "Catheter Cardiovasc Interv",
+            "Ann Cardiothorac Surg",
+            "J Struct Heart Dis",
+            "Front Cardiovasc Med",
+            "Interv Cardiol Rev",
+            "JACC: Case Reports"
+          ]
+        },
+        {
+          "id": "cardiology_advanced_heart_failure",
+          "label": "Advanced Heart Failure",
+          "topics": [
+            "Heart Transplant Listing Criteria/Evaluation",
+            "LVAD Patient Management",
+            "Right Heart Catheterization Hemodynamics",
+            "Immunosuppression Protocols",
+            "Rejection Surveillance (Biopsy)",
+            "Cardiorenal Syndrome",
+            "Infiltrative Cardiomyopathies (Amyloid/Sarcoid)",
+            "Pulmonary Hypertension (Group 1 vs 2)",
+            "Cardiogenic Shock Classifications (SCAI)",
+            "Inotropes & Vasopressors",
+            "Temporary MCS (Impella/ECMO)",
+            "End-of-Life/Palliative Care in HF",
+            "Genetic Cardiomyopathies",
+            "HFpEF Management",
+            "Donor Selection/Management"
+          ],
+          "top_journals": [
+            "J Heart Lung Transplant",
+            "JACC Heart Fail",
+            "Circ Heart Fail",
+            "Eur J Heart Fail",
+            "J Card Fail",
+            "ESC Heart Fail",
+            "Heart Fail Rev",
+            "Transplantation",
+            "ASAIO J",
+            "Clin Transplant"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "colon_and_rectal_surgery",
+      "label": "Colon and Rectal Surgery",
+      "subspecialties": [
+        {
+          "id": "colon_and_rectal_surgery_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Rectal Cancer (TME/Neoadjuvant)",
+            "Diverticulitis (Hinchey/Hartman's)",
+            "Inflammatory Bowel Disease Surgery",
+            "Anal Fistula (LIFT/Seton)",
+            "Hemorrhoids (Banding/Hemorrhoidectomy)",
+            "Anal Fissure (LIS)",
+            "Fecal Incontinence (SNS)",
+            "Colon Cancer Screening/Polypectomy",
+            "Rectal Prolapse Repair",
+            "Anal Squamous Cell Carcinoma (Nigro)",
+            "Pilonidal Disease (Flaps)",
+            "Lynch Syndrome/FAP Management",
+            "Lower GI Bleeding Localization",
+            "Stoma Creation & Complications",
+            "Pelvic Floor Disorders"
+          ],
+          "top_journals": [
+            "Dis Colon Rectum",
+            "Colorectal Dis",
+            "Ann Surg",
+            "Br J Surg",
+            "Int J Colorectal Dis",
+            "Tech Coloproctol",
+            "Gastroenterology",
+            "Lancet Oncol",
+            "J Gastrointest Surg",
+            "Surg Endosc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dermatology",
+      "label": "Dermatology",
+      "subspecialties": [
+        {
+          "id": "dermatology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Acne Vulgaris Management",
+            "Psoriasis (Topical/Biologic)",
+            "Atopic Dermatitis",
+            "Melanoma (ABCDE/Staging)",
+            "Non-Melanoma Skin Cancer (BCC/SCC)",
+            "Urticaria Management",
+            "Alopecia Areata",
+            "Vitiligo Treatments",
+            "Rosacea",
+            "Hidradenitis Suppurativa",
+            "Tinea Infections",
+            "Scabies & Lice",
+            "Herpes Simplex/Zoster",
+            "Contact Dermatitis (Patch testing)",
+            "Autoimmune Bullous Diseases (Pemphigus)"
+          ],
+          "top_journals": [
+            "J Am Acad Dermatol",
+            "Br J Dermatol",
+            "JAMA Dermatol",
+            "J Invest Dermatol",
+            "Dermatology",
+            "J Eur Acad Dermatol Venereol",
+            "Arch Dermatol",
+            "Acta Derm Venereol",
+            "Clin Exp Dermatol",
+            "Pediatr Dermatol"
+          ]
+        },
+        {
+          "id": "dermatology_dermatopathology",
+          "label": "Dermatopathology",
+          "topics": [
+            "Melanocytic Lesion Interpretation",
+            "Inflammatory Dermatoses Patterns",
+            "Cutaneous Lymphoma",
+            "Immunofluorescence (DIF/IIF)",
+            "Panniculitis Patterns",
+            "Vasculitis Histology",
+            "Infectious Dermatopathology",
+            "Alopecia Histology (Scarring vs Non-scarring)",
+            "Bullous Disease IF",
+            "Nevi vs Melanoma Criteria",
+            "BCC/SCC Subtypes",
+            "Adnexal Tumors",
+            "Mycosis Fungoides Staging",
+            "Genodermatoses",
+            "Special Stains in Derm Path"
+          ],
+          "top_journals": [
+            "Am J Dermatopathol",
+            "J Cutan Pathol",
+            "J Am Acad Dermatol",
+            "Br J Dermatol",
+            "Dermatopathology",
+            "Arch Pathol Lab Med",
+            "Mod Pathol",
+            "Histopathology",
+            "Pathology",
+            "Virchows Arch"
+          ]
+        },
+        {
+          "id": "dermatology_pediatric_dermatology",
+          "label": "Pediatric Dermatology",
+          "topics": [
+            "Infantile Hemangioma (Propranolol)",
+            "Atopic Dermatitis in Children",
+            "Diaper Dermatitis",
+            "Genodermatoses (Ichthyosis/EB)",
+            "Neonatal Rashes",
+            "Caf\u00e9-au-lait Spots (NF1)",
+            "Molluscum Contagiosum",
+            "Warts",
+            "Juvenile Xanthogranuloma",
+            "Port-Wine Stain (Laser)",
+            "Kawasaki Disease Rash",
+            "Drug Eruptions in Pediatrics",
+            "Pediatric Psoriasis",
+            "Scabies in Infants",
+            "Seborrheic Dermatitis"
+          ],
+          "top_journals": [
+            "Pediatr Dermatol",
+            "J Am Acad Dermatol",
+            "JAMA Dermatol",
+            "Br J Dermatol",
+            "Arch Dis Child",
+            "Pediatrics",
+            "Dermatology",
+            "Acta Derm Venereol",
+            "Int J Dermatol",
+            "Clin Exp Dermatol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "emergency_medicine",
+      "label": "Emergency Medicine",
+      "subspecialties": [
+        {
+          "id": "emergency_medicine_general_core",
+          "label": "General/Core",
+          "topics": [
+            "ACLS/PALS Protocols",
+            "Trauma Primary Survey (ATLS)",
+            "Sepsis Recognition & Resuscitation",
+            "Acute Stroke Evaluation (tPA/Thrombectomy)",
+            "STEMI Activation",
+            "Anaphylaxis Management",
+            "Toxicology Screening & Antidotes",
+            "DKA/HHS Management",
+            "Airway Management (RSI)",
+            "Ultrasonography in ED (FAST)",
+            "Wound Closure/Suturing",
+            "Fracture Reduction & Splinting",
+            "Acute Abdomen Evaluation",
+            "Shock States (Hypovolemic/Cardiogenic)",
+            "Psychiatric Emergencies"
+          ],
+          "top_journals": [
+            "Ann Emerg Med",
+            "Acad Emerg Med",
+            "J Emerg Med",
+            "Emerg Med J",
+            "Am J Emerg Med",
+            "Resuscitation",
+            "Trauma Surg Acute Care Open",
+            "J Trauma Acute Care Surg",
+            "Pediatr Emerg Care",
+            "West J Emerg Med"
+          ]
+        },
+        {
+          "id": "emergency_medicine_pediatric_emergency_medicine",
+          "label": "Pediatric Emergency Medicine",
+          "topics": [
+            "Pediatric Resuscitation (PALS)",
+            "Febrile Infant Evaluation",
+            "Pediatric Sepsis",
+            "Bronchiolitis Management",
+            "Croup & Epiglottitis",
+            "Seizure Management",
+            "DKA in Children",
+            "Intussusception (Air vs Hydrostatic)",
+            "Testicular Torsion",
+            "Non-Accidental Trauma Recognition",
+            "Foreign Body Aspiration",
+            "Pediatric Procedural Sedation",
+            "Hypertrophic Pyloric Stenosis",
+            "Kawasaki Disease",
+            "Anaphylaxis in Children"
+          ],
+          "top_journals": [
+            "Pediatr Emerg Care",
+            "Ann Emerg Med",
+            "Pediatrics",
+            "Acad Emerg Med",
+            "Emerg Med J",
+            "J Pediatr",
+            "JAMA Pediatr",
+            "Am J Emerg Med",
+            "Arch Dis Child",
+            "Resuscitation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family_medicine",
+      "label": "Family Medicine",
+      "subspecialties": [
+        {
+          "id": "family_medicine_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Preventive Care Screening (USPSTF)",
+            "Hypertension Management (JNC 8)",
+            "Diabetes Management (ADA Guidelines)",
+            "Lipid Management (ASCVD Risk)",
+            "Well-Child Visits (Bright Futures)",
+            "Geriatric Assessment (ADLs/IADLs)",
+            "Depression Screening (PHQ-9)",
+            "Obesity Counseling & Management",
+            "Chronic Pain Management",
+            "Prenatal Care Basics",
+            "Contraception Counseling",
+            "Immunizations (ACIP)",
+            "Substance Use Screening (SBIRT)",
+            "Smoking Cessation",
+            "Health Maintenance Exams"
+          ],
+          "top_journals": [
+            "Ann Fam Med",
+            "J Am Board Fam Med",
+            "Fam Med",
+            "Am Fam Physician",
+            "J Fam Pract",
+            "Br J Gen Pract",
+            "Can Fam Physician",
+            "Aust Fam Physician",
+            "BMC Fam Pract",
+            "Fam Pract"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "internal_medicine",
+      "label": "Internal Medicine",
+      "subspecialties": [
+        {
+          "id": "internal_medicine_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Inpatient Medicine Management",
+            "Transitional Care/Discharge Planning",
+            "Polypharmacy & Deprescribing",
+            "Complex Comorbidities",
+            "Preventive Care Screening",
+            "Hypertension Management",
+            "Diabetes Mellitus Management",
+            "Chronic Kidney Disease Staging",
+            "Heart Failure Basics",
+            "COPD Management",
+            "Dyslipidemia Treatment",
+            "Venous Thromboembolism Prophylaxis",
+            "Hospital-Acquired Infections",
+            "Perioperative Medical Consultation",
+            "Palliative Care Basics"
+          ],
+          "top_journals": [
+            "NEJM",
+            "Lancet",
+            "JAMA",
+            "JAMA Intern Med",
+            "Ann Intern Med",
+            "BMJ",
+            "Arch Intern Med",
+            "J Gen Intern Med",
+            "Am J Med",
+            "Mayo Clin Proc"
+          ]
+        },
+        {
+          "id": "internal_medicine_cardiovascular_disease",
+          "label": "Cardiovascular Disease",
+          "topics": [
+            "Acute Coronary Syndromes",
+            "Chronic Heart Failure (HFrEF/HFpEF)",
+            "Atrial Fibrillation Management",
+            "Valvular Heart Disease",
+            "Hypertensive Emergency/Urgency",
+            "Pericarditis & Myocarditis",
+            "Pulmonary Hypertension (WHO Groups)",
+            "Aortic Dissection Recognition",
+            "Syncope Evaluation",
+            "Deep Vein Thrombosis/PE",
+            "Infective Endocarditis (Duke)",
+            "Dyslipidemia (ASCVD Risk)",
+            "Cardio-Oncology",
+            "Peripheral Artery Disease",
+            "GDMT Optimization"
+          ],
+          "top_journals": [
+            "J Am Coll Cardiol",
+            "Circulation",
+            "Eur Heart J",
+            "JACC",
+            "Circ Heart Fail",
+            "JAMA Cardiol",
+            "Nat Rev Cardiol",
+            "Am J Cardiol",
+            "Heart",
+            "Cardiovasc Res"
+          ]
+        },
+        {
+          "id": "internal_medicine_endocrinology",
+          "label": "Endocrinology",
+          "topics": [
+            "Diabetes Mellitus (Type 1/2) Management",
+            "Thyroid Disorders (Hypo/Hyperthyroidism)",
+            "Adrenal Insufficiency",
+            "Cushing Syndrome",
+            "Pheochromocytoma",
+            "Pituitary Adenomas (Prolactinoma/Acromegaly)",
+            "Osteoporosis & Bone Health",
+            "Primary Hyperparathyroidism",
+            "Male/Female Hypogonadism",
+            "Polycystic Ovary Syndrome (PCOS)",
+            "Metabolic Bone Disease",
+            "Transgender Hormone Therapy",
+            "Neuroendocrine Tumors",
+            "Diabetic Ketoacidosis",
+            "Hypoglycemia Management"
+          ],
+          "top_journals": [
+            "Diabetes Care",
+            "J Clin Endocrinol Metab",
+            "Lancet Diabetes Endocrinol",
+            "Endocr Rev",
+            "Eur J Endocrinol",
+            "Thyroid",
+            "J Bone Miner Res",
+            "Diabetes",
+            "Diabetologia",
+            "Clin Endocrinol"
+          ]
+        },
+        {
+          "id": "internal_medicine_gastroenterology",
+          "label": "Gastroenterology",
+          "topics": [
+            "Inflammatory Bowel Disease (Crohn's/UC)",
+            "GERD & Barrett's Esophagus",
+            "Celiac Disease",
+            "Irritable Bowel Syndrome",
+            "Acute Pancreatitis (Revised Atlanta)",
+            "Chronic Liver Disease & Cirrhosis",
+            "Hepatitis B/C Management",
+            "Non-Alcoholic Fatty Liver Disease (NAFLD/NASH)",
+            "GI Bleeding (Upper/Lower)",
+            "Colorectal Cancer Screening",
+            "H. pylori Eradication",
+            "Eosinophilic Esophagitis",
+            "Gastroparesis",
+            "Small Intestinal Bacterial Overgrowth (SIBO)",
+            "Functional Dyspepsia"
+          ],
+          "top_journals": [
+            "Gastroenterology",
+            "Gut",
+            "Hepatology",
+            "Am J Gastroenterol",
+            "Clin Gastroenterol Hepatol",
+            "J Hepatol",
+            "Lancet Gastroenterol Hepatol",
+            "Inflamm Bowel Dis",
+            "Aliment Pharmacol Ther",
+            "Endoscopy"
+          ]
+        },
+        {
+          "id": "internal_medicine_geriatric_medicine",
+          "label": "Geriatric Medicine",
+          "topics": [
+            "Comprehensive Geriatric Assessment",
+            "Dementia Evaluation (Alzheimer's)",
+            "Delirium Prevention & Management",
+            "Falls Risk Assessment",
+            "Polypharmacy & Beers Criteria",
+            "Frailty Screening",
+            "Advance Care Planning",
+            "Osteoporosis & Fracture Prevention",
+            "Urinary Incontinence",
+            "Pressure Injury Prevention",
+            "Elder Abuse Screening",
+            "Palliative Care in Elderly",
+            "Medication Reconciliation",
+            "Functional Decline Prevention",
+            "Age-Friendly Health Systems (4Ms)"
+          ],
+          "top_journals": [
+            "J Am Geriatr Soc",
+            "Age Ageing",
+            "J Gerontol A Biol Sci Med Sci",
+            "Gerontologist",
+            "Aging Clin Exp Res",
+            "Maturitas",
+            "Geriatr Gerontol Int",
+            "BMC Geriatr",
+            "Int J Geriatr Psychiatry",
+            "J Nutr Health Aging"
+          ]
+        },
+        {
+          "id": "internal_medicine_hematology",
+          "label": "Hematology",
+          "topics": [
+            "Anemia Workup (Iron/B12/Folate/Hemolytic)",
+            "Sickle Cell Disease Management",
+            "Thrombocytopenia Differential",
+            "Venous Thromboembolism Management",
+            "Anticoagulation (DOACs/Warfarin)",
+            "Myelodysplastic Syndromes",
+            "Acute Leukemia Recognition",
+            "Chronic Myeloproliferative Neoplasms",
+            "Lymphoma Staging",
+            "Multiple Myeloma",
+            "Hemophilia & von Willebrand Disease",
+            "Thrombophilias",
+            "Transfusion Medicine",
+            "Bone Marrow Biopsy Interpretation",
+            "DIC Management"
+          ],
+          "top_journals": [
+            "Blood",
+            "Blood Adv",
+            "Br J Haematol",
+            "Am J Hematol",
+            "Haematologica",
+            "J Thromb Haemost",
+            "Leukemia",
+            "Thromb Res",
+            "Leuk Lymphoma",
+            "Clin Lymphoma Myeloma Leuk"
+          ]
+        },
+        {
+          "id": "internal_medicine_infectious_disease",
+          "label": "Infectious Disease",
+          "topics": [
+            "Antimicrobial Stewardship",
+            "Sepsis & Septic Shock",
+            "HIV/AIDS Management (ART)",
+            "Tuberculosis (Latent/Active)",
+            "Infective Endocarditis",
+            "Osteomyelitis",
+            "Clostridium difficile Infection",
+            "Urinary Tract Infections (Complicated)",
+            "Pneumonia (CAP/HAP/VAP)",
+            "Skin & Soft Tissue Infections",
+            "Fungal Infections (Candida/Aspergillus)",
+            "Tick-Borne Illnesses",
+            "Travel Medicine",
+            "Transplant Infectious Complications",
+            "Febrile Neutropenia"
+          ],
+          "top_journals": [
+            "Clin Infect Dis",
+            "Lancet Infect Dis",
+            "J Infect Dis",
+            "Emerg Infect Dis",
+            "J Antimicrob Chemother",
+            "Antimicrob Agents Chemother",
+            "Open Forum Infect Dis",
+            "Int J Antimicrob Agents",
+            "Infect Dis Clin North Am",
+            "BMC Infect Dis"
+          ]
+        },
+        {
+          "id": "internal_medicine_nephrology",
+          "label": "Nephrology",
+          "topics": [
+            "Acute Kidney Injury (KDIGO Staging)",
+            "Chronic Kidney Disease Management",
+            "Dialysis Modalities (HD/PD)",
+            "Glomerulonephritis (Nephritic/Nephrotic)",
+            "Hypertension in CKD",
+            "Electrolyte Disorders (Hypo/Hypernatremia/kalemia)",
+            "Acid-Base Disturbances",
+            "Renal Transplant Management",
+            "Diabetic Nephropathy",
+            "Polycystic Kidney Disease",
+            "Renovascular Hypertension",
+            "Uremic Syndrome",
+            "Renal Osteodystrophy",
+            "Anemia of CKD",
+            "Volume Overload Management"
+          ],
+          "top_journals": [
+            "J Am Soc Nephrol",
+            "Kidney Int",
+            "Clin J Am Soc Nephrol",
+            "Am J Kidney Dis",
+            "Nephrol Dial Transplant",
+            "Nat Rev Nephrol",
+            "Kidney Int Rep",
+            "BMC Nephrol",
+            "J Nephrol",
+            "Semin Nephrol"
+          ]
+        },
+        {
+          "id": "internal_medicine_oncology",
+          "label": "Oncology",
+          "topics": [
+            "Solid Tumor Staging (TNM)",
+            "Chemotherapy Principles",
+            "Immunotherapy (Checkpoint Inhibitors)",
+            "Targeted Therapy",
+            "Breast Cancer (ER/PR/HER2)",
+            "Lung Cancer (NSCLC/SCLC)",
+            "Colorectal Cancer Screening/Treatment",
+            "Prostate Cancer Management",
+            "Melanoma Staging",
+            "Neutropenic Fever Management",
+            "Tumor Lysis Syndrome",
+            "Hypercalcemia of Malignancy",
+            "Palliative Oncology",
+            "Cancer Pain Management",
+            "Survivorship Care"
+          ],
+          "top_journals": [
+            "J Clin Oncol",
+            "Lancet Oncol",
+            "JAMA Oncol",
+            "Ann Oncol",
+            "Cancer",
+            "J Natl Cancer Inst",
+            "Eur J Cancer",
+            "Cancer Treat Rev",
+            "Clin Cancer Res",
+            "Oncologist"
+          ]
+        },
+        {
+          "id": "internal_medicine_pulmonary_disease",
+          "label": "Pulmonary Disease",
+          "topics": [
+            "Asthma Management (GINA Guidelines)",
+            "COPD (GOLD Staging)",
+            "Interstitial Lung Disease",
+            "Pulmonary Hypertension",
+            "Obstructive Sleep Apnea",
+            "Pulmonary Embolism",
+            "Pneumonia (CAP/HAP)",
+            "Pleural Effusion Workup",
+            "ARDS Management",
+            "Lung Nodule Evaluation (Fleischner)",
+            "Bronchiectasis",
+            "Sarcoidosis",
+            "Lung Cancer Screening",
+            "Mechanical Ventilation Basics",
+            "Pulmonary Function Tests Interpretation"
+          ],
+          "top_journals": [
+            "Am J Respir Crit Care Med",
+            "Lancet Respir Med",
+            "Thorax",
+            "Chest",
+            "Eur Respir J",
+            "Respir Med",
+            "J Thorac Dis",
+            "Respir Res",
+            "Int J COPD",
+            "Respirology"
+          ]
+        },
+        {
+          "id": "internal_medicine_rheumatology",
+          "label": "Rheumatology",
+          "topics": [
+            "Rheumatoid Arthritis (2010 ACR/EULAR)",
+            "Systemic Lupus Erythematosus",
+            "Gout & Pseudogout",
+            "Osteoarthritis Management",
+            "Psoriatic Arthritis",
+            "Ankylosing Spondylitis/Spondyloarthritis",
+            "Giant Cell Arteritis/PMR",
+            "ANCA-Associated Vasculitis",
+            "Scleroderma",
+            "Sj\u00f6gren Syndrome",
+            "Inflammatory Myopathies",
+            "Crystal Arthropathies",
+            "Septic Arthritis",
+            "Biologic DMARDs",
+            "Soft Tissue Rheumatism"
+          ],
+          "top_journals": [
+            "Ann Rheum Dis",
+            "Arthritis Rheumatol",
+            "Arthritis Care Res",
+            "Rheumatology",
+            "Nat Rev Rheumatol",
+            "Semin Arthritis Rheum",
+            "Arthritis Res Ther",
+            "Lupus",
+            "J Rheumatol",
+            "Clin Rheumatol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medical_genetics",
+      "label": "Medical Genetics",
+      "subspecialties": [
+        {
+          "id": "medical_genetics_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Chromosomal Abnormalities (Down/Turner/Klinefelter)",
+            "Single-Gene Disorders (CF/Sickle Cell)",
+            "Whole Exome/Genome Sequencing Interpretation",
+            "Genetic Counseling Principles",
+            "Prenatal Screening & Diagnosis",
+            "Newborn Screening",
+            "Cancer Genetics (BRCA/Lynch)",
+            "Pharmacogenomics",
+            "Inborn Errors of Metabolism",
+            "Dysmorphology Assessment",
+            "Mitochondrial Disorders",
+            "Copy Number Variants",
+            "Next-Generation Sequencing",
+            "Ethical/Legal Issues (GINA)",
+            "Preimplantation Genetic Diagnosis"
+          ],
+          "top_journals": [
+            "Genet Med",
+            "Am J Hum Genet",
+            "Nat Genet",
+            "Am J Med Genet",
+            "J Med Genet",
+            "Eur J Hum Genet",
+            "Hum Mutat",
+            "Clin Genet",
+            "Mol Genet Genomic Med",
+            "Genome Med"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neurological_surgery",
+      "label": "Neurological Surgery",
+      "subspecialties": [
+        {
+          "id": "neurological_surgery_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Traumatic Brain Injury (ICP Management)",
+            "Subdural/Epidural Hematoma Evacuation",
+            "Brain Tumor Resection (Glioma/Meningioma)",
+            "Aneurysm Clipping",
+            "AVM Resection",
+            "Spinal Cord Injury Management",
+            "Lumbar Discectomy/Laminectomy",
+            "Cervical Spine Fusion",
+            "Carpal Tunnel Release",
+            "Shunt Placement (VP/VA)",
+            "Cranioplasty",
+            "Deep Brain Stimulation",
+            "Chiari Malformation Decompression",
+            "Pituitary Adenoma Resection",
+            "Peripheral Nerve Surgery"
+          ],
+          "top_journals": [
+            "J Neurosurg",
+            "Neurosurgery",
+            "World Neurosurg",
+            "Acta Neurochir",
+            "J Neurosurg Spine",
+            "J Neurooncol",
+            "Spine",
+            "Clin Neurosurg",
+            "Neurosurg Focus",
+            "Oper Neurosurg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nuclear_medicine",
+      "label": "Nuclear Medicine",
+      "subspecialties": [
+        {
+          "id": "nuclear_medicine_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Thyroid Scintigraphy & Uptake",
+            "Radioiodine Therapy (I-131)",
+            "Bone Scan Interpretation",
+            "PET/CT in Oncology",
+            "Myocardial Perfusion Imaging (SPECT)",
+            "Renal Scintigraphy (DMSA/MAG3)",
+            "Parathyroid Scan (Sestamibi)",
+            "Sentinel Lymph Node Mapping",
+            "GI Bleeding Scan (RBC Scan)",
+            "Ventilation/Perfusion (V/Q) Scan",
+            "Gallium Scan",
+            "DOTATATE PET (Neuroendocrine)",
+            "Radiation Safety",
+            "PSMA PET (Prostate)",
+            "FDG-PET Patterns"
+          ],
+          "top_journals": [
+            "J Nucl Med",
+            "Eur J Nucl Med Mol Imaging",
+            "Clin Nucl Med",
+            "Nucl Med Commun",
+            "Semin Nucl Med",
+            "Q J Nucl Med Mol Imaging",
+            "J Nucl Cardiol",
+            "Ann Nucl Med",
+            "EJNMMI Res",
+            "Mol Imaging Biol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "obstetrics_and_gynecology",
+      "label": "Obstetrics and Gynecology",
+      "subspecialties": [
+        {
+          "id": "obstetrics_and_gynecology_general_obstetrics",
+          "label": "General Obstetrics",
+          "topics": [
+            "Prenatal Care & Screening",
+            "Gestational Diabetes Management",
+            "Preeclampsia/Eclampsia",
+            "Preterm Labor & Tocolysis",
+            "Fetal Monitoring (NST/BPP)",
+            "Vaginal Delivery",
+            "Cesarean Delivery Indications",
+            "Postpartum Hemorrhage Management",
+            "Shoulder Dystocia",
+            "Assisted Reproductive Technology Basics",
+            "Cervical Insufficiency (Cerclage)",
+            "PROM Management",
+            "Multiple Gestation",
+            "Rh Alloimmunization",
+            "Fetal Growth Restriction"
+          ],
+          "top_journals": [
+            "Obstet Gynecol",
+            "Am J Obstet Gynecol",
+            "BJOG",
+            "Ultrasound Obstet Gynecol",
+            "J Matern Fetal Neonatal Med",
+            "Acta Obstet Gynecol Scand",
+            "Prenat Diagn",
+            "Fetal Diagn Ther",
+            "Eur J Obstet Gynecol Reprod Biol",
+            "Birth"
+          ]
+        },
+        {
+          "id": "obstetrics_and_gynecology_general_gynecology",
+          "label": "General Gynecology",
+          "topics": [
+            "Abnormal Uterine Bleeding",
+            "Endometriosis Management",
+            "Polycystic Ovary Syndrome",
+            "Uterine Fibroids",
+            "Pelvic Organ Prolapse",
+            "Urinary Incontinence (SUI/OAB)",
+            "Contraception Methods",
+            "Cervical Cancer Screening (Pap/HPV)",
+            "Ovarian Cyst Management",
+            "Pelvic Inflammatory Disease",
+            "Menopause/HRT",
+            "Dysmenorrhea",
+            "Chronic Pelvic Pain",
+            "STI Screening",
+            "Vulvar Disorders"
+          ],
+          "top_journals": [
+            "Obstet Gynecol",
+            "Am J Obstet Gynecol",
+            "BJOG",
+            "Gynecol Oncol",
+            "J Minim Invasive Gynecol",
+            "Fertil Steril",
+            "Menopause",
+            "Female Pelvic Med Reconstr Surg",
+            "Int Urogynecol J",
+            "Climacteric"
+          ]
+        },
+        {
+          "id": "obstetrics_and_gynecology_gynecologic_oncology",
+          "label": "Gynecologic Oncology",
+          "topics": [
+            "Ovarian Cancer Staging & Cytoreduction",
+            "Endometrial Cancer",
+            "Cervical Cancer (FIGO Staging)",
+            "Vulvar/Vaginal Cancer",
+            "Gestational Trophoblastic Disease",
+            "Genetic Testing (BRCA/Lynch)",
+            "Chemotherapy Regimens (Carboplatin/Taxol)",
+            "Immunotherapy in GYN Cancers",
+            "Fertility Preservation",
+            "HIPEC (Hyperthermic Intraperitoneal Chemotherapy)",
+            "Palliative Surgery",
+            "Radiation Therapy Basics",
+            "Sentinel Lymph Node Mapping",
+            "Hereditary Cancer Syndromes",
+            "Neoadjuvant Chemotherapy"
+          ],
+          "top_journals": [
+            "Gynecol Oncol",
+            "Int J Gynecol Cancer",
+            "J Clin Oncol",
+            "Lancet Oncol",
+            "Cancer",
+            "Ann Surg Oncol",
+            "Eur J Cancer",
+            "Am J Obstet Gynecol",
+            "J Gynecol Oncol",
+            "Curr Oncol Rep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ophthalmology",
+      "label": "Ophthalmology",
+      "subspecialties": [
+        {
+          "id": "ophthalmology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Cataract Surgery (Phacoemulsification)",
+            "Diabetic Retinopathy (Laser/Anti-VEGF)",
+            "Age-Related Macular Degeneration",
+            "Glaucoma Management (Medical/Surgical)",
+            "Refractive Surgery (LASIK/PRK)",
+            "Retinal Detachment Repair",
+            "Corneal Transplant (DSAEK/DMEK)",
+            "Strabismus Surgery",
+            "Orbital Fractures",
+            "Optic Neuritis",
+            "Anterior Uveitis",
+            "Dry Eye Disease",
+            "Ocular Trauma",
+            "Presbyopia Management",
+            "Blepharoplasty"
+          ],
+          "top_journals": [
+            "Ophthalmology",
+            "JAMA Ophthalmol",
+            "Am J Ophthalmol",
+            "Arch Ophthalmol",
+            "Invest Ophthalmol Vis Sci",
+            "Br J Ophthalmol",
+            "Retina",
+            "Cornea",
+            "J Cataract Refract Surg",
+            "Eye"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "orthopedic_surgery",
+      "label": "Orthopedic Surgery",
+      "subspecialties": [
+        {
+          "id": "orthopedic_surgery_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Hip Fracture Management (ORIF/Hemiarthroplasty)",
+            "Total Hip Arthroplasty",
+            "Total Knee Arthroplasty",
+            "ACL Reconstruction",
+            "Rotator Cuff Repair",
+            "Ankle Fracture ORIF",
+            "Carpal Tunnel Release",
+            "Trigger Finger Release",
+            "Meniscus Repair/Meniscectomy",
+            "Hip Arthroscopy (FAI)",
+            "Shoulder Arthroscopy",
+            "Pediatric Fractures (Supracondylar)",
+            "Compartment Syndrome",
+            "Osteomyelitis Management",
+            "Open Fractures (Gustilo-Anderson)"
+          ],
+          "top_journals": [
+            "J Bone Joint Surg Am",
+            "J Bone Joint Surg Br",
+            "Clin Orthop Relat Res",
+            "J Orthop Trauma",
+            "Am J Sports Med",
+            "Knee Surg Sports Traumatol Arthrosc",
+            "J Arthroplasty",
+            "Arthroscopy",
+            "Bone Joint J",
+            "Injury"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "otolaryngology",
+      "label": "Otolaryngology",
+      "subspecialties": [
+        {
+          "id": "otolaryngology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Chronic Rhinosinusitis Management",
+            "Functional Endoscopic Sinus Surgery (FESS)",
+            "Tonsillectomy & Adenoidectomy",
+            "Thyroidectomy",
+            "Parotidectomy",
+            "Obstructive Sleep Apnea Surgery (UPPP)",
+            "Septoplasty",
+            "Tympanoplasty",
+            "Cochlear Implantation",
+            "Head & Neck Cancer Resection",
+            "Neck Dissection",
+            "Tracheostomy",
+            "Laryngoscopy",
+            "Epistaxis Management",
+            "Acoustic Neuroma Surgery"
+          ],
+          "top_journals": [
+            "Laryngoscope",
+            "Otolaryngol Head Neck Surg",
+            "Int Forum Allergy Rhinol",
+            "Rhinology",
+            "Am J Otolaryngol",
+            "Eur Arch Otorhinolaryngol",
+            "JAMA Otolaryngol Head Neck Surg",
+            "Ann Otol Rhinol Laryngol",
+            "Otol Neurotol",
+            "Head Neck"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pathology",
+      "label": "Pathology",
+      "subspecialties": [
+        {
+          "id": "pathology_anatomic_pathology",
+          "label": "Anatomic Pathology",
+          "topics": [
+            "Breast Pathology (IDC/DCIS)",
+            "Gastrointestinal Pathology",
+            "Genitourinary Pathology",
+            "Gynecologic Pathology",
+            "Neuropathology",
+            "Hematopathology",
+            "Dermatopathology",
+            "Bone & Soft Tissue Pathology",
+            "Lung Pathology",
+            "Liver Pathology",
+            "Immunohistochemistry Interpretation",
+            "Frozen Section Diagnosis",
+            "Lymphoma Classification (WHO)",
+            "Molecular Pathology Basics",
+            "Tumor Staging (AJCC)"
+          ],
+          "top_journals": [
+            "Am J Surg Pathol",
+            "Mod Pathol",
+            "Arch Pathol Lab Med",
+            "Hum Pathol",
+            "Histopathology",
+            "Virchows Arch",
+            "J Clin Pathol",
+            "Pathology",
+            "Diagn Pathol",
+            "Adv Anat Pathol"
+          ]
+        },
+        {
+          "id": "pathology_clinical_pathology",
+          "label": "Clinical Pathology",
+          "topics": [
+            "Clinical Chemistry Test Interpretation",
+            "Hematology (CBC/Peripheral Smear)",
+            "Coagulation Studies",
+            "Blood Banking & Transfusion Medicine",
+            "Microbiology & Culture Interpretation",
+            "Molecular Diagnostics",
+            "Flow Cytometry",
+            "HLA Typing",
+            "Therapeutic Drug Monitoring",
+            "Immunology Testing",
+            "Urinalysis Interpretation",
+            "CSF Analysis",
+            "Body Fluid Analysis",
+            "Point-of-Care Testing",
+            "Lab Quality Control"
+          ],
+          "top_journals": [
+            "Clin Chem",
+            "Clin Chem Lab Med",
+            "Arch Pathol Lab Med",
+            "Am J Clin Pathol",
+            "J Clin Microbiol",
+            "Clin Microbiol Rev",
+            "Transfusion",
+            "J Mol Diagn",
+            "Lab Med",
+            "Int J Lab Hematol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pediatrics",
+      "label": "Pediatrics",
+      "subspecialties": [
+        {
+          "id": "pediatrics_general_pediatrics",
+          "label": "General Pediatrics",
+          "topics": [
+            "Well-Child Visits (Bright Futures)",
+            "Immunization Schedule (ACIP)",
+            "Growth & Development Milestones",
+            "Acute Otitis Media",
+            "Bronchiolitis",
+            "Croup",
+            "Gastroenteritis",
+            "Febrile Seizures",
+            "ADHD Diagnosis & Management",
+            "Asthma in Children",
+            "Newborn Screening",
+            "Failure to Thrive",
+            "Kawasaki Disease",
+            "Adolescent Medicine",
+            "Child Abuse Recognition"
+          ],
+          "top_journals": [
+            "Pediatrics",
+            "JAMA Pediatr",
+            "J Pediatr",
+            "Arch Dis Child",
+            "Pediatr Infect Dis J",
+            "Acta Paediatr",
+            "Clin Pediatr",
+            "Eur J Pediatr",
+            "Ambul Pediatr",
+            "Pediatr Rev"
+          ]
+        },
+        {
+          "id": "pediatrics_neonatal_perinatal_medicine",
+          "label": "Neonatal-Perinatal Medicine",
+          "topics": [
+            "Prematurity Management",
+            "Respiratory Distress Syndrome (Surfactant)",
+            "Neonatal Sepsis",
+            "Necrotizing Enterocolitis",
+            "Intraventricular Hemorrhage",
+            "Hypoxic-Ischemic Encephalopathy (Therapeutic Hypothermia)",
+            "Patent Ductus Arteriosus",
+            "Retinopathy of Prematurity",
+            "Neonatal Jaundice (Phototherapy/Exchange)",
+            "Transient Tachypnea of Newborn",
+            "Meconium Aspiration Syndrome",
+            "Neonatal Abstinence Syndrome",
+            "Congenital Heart Disease Recognition",
+            "Neonatal Resuscitation (NRP)",
+            "ECMO in Neonates"
+          ],
+          "top_journals": [
+            "Pediatrics",
+            "J Pediatr",
+            "J Perinatol",
+            "Arch Dis Child Fetal Neonatal Ed",
+            "Semin Perinatol",
+            "Neonatology",
+            "Acta Paediatr",
+            "Early Hum Dev",
+            "Pediatr Res",
+            "Neonatal Netw"
+          ]
+        },
+        {
+          "id": "pediatrics_pediatric_cardiology",
+          "label": "Pediatric Cardiology",
+          "topics": [
+            "Congenital Heart Disease Diagnosis",
+            "Echocardiography in Children",
+            "Kawasaki Disease & Coronary Aneurysms",
+            "Heart Failure in Children",
+            "Arrhythmias (SVT/Long QT)",
+            "Cardiomyopathies",
+            "Pulmonary Hypertension",
+            "Endocarditis Prophylaxis",
+            "Fetal Cardiology",
+            "Heart Transplant in Children",
+            "Adult Congenital Heart Disease Transition",
+            "Sports Cardiology",
+            "Syncope Evaluation",
+            "Cardiac Catheterization",
+            "Interventional Procedures (ASD/PDA Closure)"
+          ],
+          "top_journals": [
+            "Circulation",
+            "Pediatr Cardiol",
+            "J Am Coll Cardiol",
+            "Cardiol Young",
+            "Congenit Heart Dis",
+            "World J Pediatr Congenit Heart Surg",
+            "Pediatr Transplant",
+            "J Cardiovasc Magn Reson",
+            "Eur Heart J",
+            "Prog Pediatr Cardiol"
+          ]
+        },
+        {
+          "id": "pediatrics_pediatric_critical_care_medicine",
+          "label": "Pediatric Critical Care Medicine",
+          "topics": [
+            "Pediatric Septic Shock",
+            "ARDS in Children",
+            "Mechanical Ventilation",
+            "Diabetic Ketoacidosis",
+            "Status Epilepticus",
+            "Traumatic Brain Injury",
+            "ECMO Indications",
+            "Acute Respiratory Failure",
+            "Congenital Heart Disease Post-Op",
+            "Multiorgan Dysfunction",
+            "Renal Replacement Therapy",
+            "Brain Death Determination",
+            "Nutrition in PICU",
+            "Sedation & Analgesia",
+            "End-of-Life Care"
+          ],
+          "top_journals": [
+            "Pediatr Crit Care Med",
+            "Crit Care Med",
+            "Intensive Care Med",
+            "Pediatrics",
+            "Crit Care",
+            "Resuscitation",
+            "J Pediatr",
+            "JAMA Pediatr",
+            "Chest",
+            "Shock"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "physical_medicine_and_rehabilitation",
+      "label": "Physical Medicine and Rehabilitation",
+      "subspecialties": [
+        {
+          "id": "physical_medicine_and_rehabilitation_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Spinal Cord Injury Rehabilitation",
+            "Traumatic Brain Injury Rehabilitation",
+            "Stroke Rehabilitation",
+            "Amputee Rehabilitation (Prosthetics)",
+            "Musculoskeletal Pain Management",
+            "Electrodiagnostic Medicine (EMG/NCS)",
+            "Joint & Soft Tissue Injections",
+            "Spasticity Management (Botox/Baclofen)",
+            "Neurogenic Bladder/Bowel",
+            "Wheelchairs & DME Prescription",
+            "Cardiac Rehabilitation",
+            "Pulmonary Rehabilitation",
+            "Cancer Rehabilitation",
+            "Assistive Technology",
+            "Functional Assessment (FIM)"
+          ],
+          "top_journals": [
+            "Arch Phys Med Rehabil",
+            "Am J Phys Med Rehabil",
+            "J Rehabil Med",
+            "PM R",
+            "Clin Rehabil",
+            "Disabil Rehabil",
+            "Neurorehabil Neural Repair",
+            "Top Stroke Rehabil",
+            "Spinal Cord",
+            "J Spinal Cord Med"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "plastic_surgery",
+      "label": "Plastic Surgery",
+      "subspecialties": [
+        {
+          "id": "plastic_surgery_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Breast Reconstruction (Implant/Autologous)",
+            "Abdominoplasty",
+            "Liposuction",
+            "Rhinoplasty",
+            "Facelift",
+            "Blepharoplasty",
+            "Hand Surgery (Tendon/Nerve Repair)",
+            "Burn Management",
+            "Cleft Lip/Palate Repair",
+            "Microsurgery (Free Flaps)",
+            "Wound Healing & Grafts",
+            "Scar Revision",
+            "Pressure Ulcer Management",
+            "Facial Trauma Reconstruction",
+            "Gender-Affirming Surgery"
+          ],
+          "top_journals": [
+            "Plast Reconstr Surg",
+            "Aesthetic Surg J",
+            "J Plast Reconstr Aesthet Surg",
+            "Ann Plast Surg",
+            "Plast Reconstr Surg Glob Open",
+            "J Hand Surg Am",
+            "Microsurgery",
+            "Burns",
+            "J Craniofac Surg",
+            "Aesthet Plast Surg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "preventive_medicine",
+      "label": "Preventive Medicine",
+      "subspecialties": [
+        {
+          "id": "preventive_medicine_aerospace_medicine",
+          "label": "Aerospace Medicine",
+          "topics": [
+            "Aviation Physiology (Hypoxia/Decompression)",
+            "Medical Certification of Pilots (FAA Class I/II/III)",
+            "Spatial Disorientation",
+            "G-Force Effects",
+            "Fatigue Management in Aviation",
+            "Cabin Pressurization",
+            "Altitude Illness",
+            "Human Factors in Aviation",
+            "Toxicology & Substance Abuse Screening",
+            "Vision Standards",
+            "Cardiovascular Risk in Pilots",
+            "Medications & Flying",
+            "Aeromedical Decision-Making",
+            "Spacecraft Medicine Basics",
+            "Jet Lag & Circadian Rhythm"
+          ],
+          "top_journals": [
+            "Aviat Space Environ Med",
+            "Aerosp Med Hum Perform",
+            "Mil Med",
+            "Wilderness Environ Med",
+            "BMJ",
+            "Occup Med",
+            "Am J Public Health",
+            "Prev Med",
+            "J Occup Environ Med",
+            "Ergonomics"
+          ]
+        },
+        {
+          "id": "preventive_medicine_occupational_medicine",
+          "label": "Occupational Medicine",
+          "topics": [
+            "Workers' Compensation Systems",
+            "OSHA Regulations",
+            "Occupational Lung Diseases (Asbestosis/Silicosis)",
+            "Hearing Conservation Programs",
+            "Chemical Exposure & Toxicology",
+            "Ergonomics & Musculoskeletal Disorders",
+            "Fitness for Duty Evaluations",
+            "Return to Work Programs",
+            "Occupational Dermatitis",
+            "Occupational Asthma",
+            "Bloodborne Pathogens (HIV/HBV/HCV)",
+            "Workplace Injury Prevention",
+            "Drug Testing Programs",
+            "Disability Determination",
+            "Industrial Hygiene"
+          ],
+          "top_journals": [
+            "J Occup Environ Med",
+            "Occup Environ Med",
+            "Scand J Work Environ Health",
+            "Am J Ind Med",
+            "Int Arch Occup Environ Health",
+            "Occup Med",
+            "J Occup Health",
+            "Ann Work Expo Health",
+            "Workplace Health Saf",
+            "Am J Public Health"
+          ]
+        },
+        {
+          "id": "preventive_medicine_public_health_general_preventive_medicine",
+          "label": "Public Health & General Preventive Medicine",
+          "topics": [
+            "Epidemiology Basics (Incidence/Prevalence)",
+            "Biostatistics & Study Design",
+            "Disease Surveillance Systems",
+            "Outbreak Investigation",
+            "Vaccine-Preventable Diseases",
+            "Health Disparities",
+            "Social Determinants of Health",
+            "Community Health Assessment",
+            "Chronic Disease Prevention",
+            "Environmental Health",
+            "Health Policy & Advocacy",
+            "Quality Improvement Methodologies",
+            "Population Health Management",
+            "Screening Programs (USPSTF)",
+            "Global Health"
+          ],
+          "top_journals": [
+            "Am J Public Health",
+            "Lancet Public Health",
+            "BMC Public Health",
+            "Prev Med",
+            "Am J Prev Med",
+            "Public Health",
+            "J Public Health",
+            "Epidemiology",
+            "Ann Epidemiol",
+            "Health Aff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "psychiatry",
+      "label": "Psychiatry",
+      "subspecialties": [
+        {
+          "id": "psychiatry_general_psychiatry",
+          "label": "General Psychiatry",
+          "topics": [
+            "Major Depressive Disorder",
+            "Bipolar Disorder",
+            "Schizophrenia",
+            "Anxiety Disorders (GAD/Panic/Social)",
+            "PTSD & Trauma",
+            "Substance Use Disorders",
+            "Personality Disorders",
+            "Suicide Risk Assessment",
+            "Psychopharmacology Basics",
+            "Cognitive Behavioral Therapy",
+            "Involuntary Commitment Laws",
+            "Schizoaffective Disorder",
+            "OCD",
+            "ADHD in Adults",
+            "Grief & Bereavement"
+          ],
+          "top_journals": [
+            "Am J Psychiatry",
+            "JAMA Psychiatry",
+            "Lancet Psychiatry",
+            "Br J Psychiatry",
+            "Mol Psychiatry",
+            "Biol Psychiatry",
+            "Psychol Med",
+            "J Clin Psychiatry",
+            "Schizophr Bull",
+            "Arch Gen Psychiatry"
+          ]
+        },
+        {
+          "id": "psychiatry_child_and_adolescent_psychiatry",
+          "label": "Child and Adolescent Psychiatry",
+          "topics": [
+            "ADHD Diagnosis & Medication",
+            "Autism Spectrum Disorder",
+            "Oppositional Defiant Disorder",
+            "Conduct Disorder",
+            "Anxiety Disorders in Children",
+            "Childhood Depression",
+            "Eating Disorders (Anorexia/Bulimia)",
+            "School Refusal",
+            "Self-Harm & Suicidal Ideation",
+            "Intellectual Disability",
+            "Tic Disorders & Tourette's",
+            "Selective Mutism",
+            "Separation Anxiety",
+            "Developmental Trauma",
+            "Pediatric Bipolar Controversy"
+          ],
+          "top_journals": [
+            "J Am Acad Child Adolesc Psychiatry",
+            "J Child Psychol Psychiatry",
+            "J Clin Child Adolesc Psychol",
+            "Child Psychiatry Hum Dev",
+            "Eur Child Adolesc Psychiatry",
+            "J Abnorm Child Psychol",
+            "J Autism Dev Disord",
+            "Pediatrics",
+            "JAMA Pediatr",
+            "Dev Psychopathol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radiology",
+      "label": "Radiology",
+      "subspecialties": [
+        {
+          "id": "radiology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Chest X-Ray Interpretation",
+            "Abdominal CT Interpretation",
+            "Brain MRI Basics",
+            "Musculoskeletal Imaging",
+            "Breast Imaging (Mammography/US/MRI)",
+            "Interventional Radiology Basics",
+            "Contrast Reactions Management",
+            "Radiation Safety",
+            "CT Angiography",
+            "MR Angiography",
+            "Ultrasound Physics",
+            "Fluoroscopy",
+            "PACS & Radiology Informatics",
+            "Incidental Findings Management",
+            "BI-RADS Classification"
+          ],
+          "top_journals": [
+            "Radiology",
+            "AJR Am J Roentgenol",
+            "JAMA",
+            "Eur Radiol",
+            "J Am Coll Radiol",
+            "Radiographics",
+            "Acad Radiol",
+            "Br J Radiol",
+            "Clin Radiol",
+            "Abdom Radiol"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "surgery_general",
+      "label": "Surgery (General)",
+      "subspecialties": [
+        {
+          "id": "surgery_general_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Acute Appendicitis (Laparoscopic/Open)",
+            "Cholecystectomy",
+            "Inguinal/Femoral Hernia Repair",
+            "Bowel Obstruction Management",
+            "Acute Mesenteric Ischemia",
+            "Peptic Ulcer Disease (Perforation)",
+            "GI Bleeding (Endoscopy/Surgery)",
+            "Diverticulitis Management",
+            "Bariatric Surgery (Sleeve/Bypass)",
+            "Thyroidectomy",
+            "Parathyroidectomy",
+            "Soft Tissue Masses",
+            "Abscess Drainage",
+            "Trauma Surgery Basics",
+            "Wound Management"
+          ],
+          "top_journals": [
+            "Ann Surg",
+            "JAMA Surg",
+            "Br J Surg",
+            "J Am Coll Surg",
+            "Surgery",
+            "World J Surg",
+            "Ann Surg Oncol",
+            "Surg Endosc",
+            "J Gastrointest Surg",
+            "J Surg Res"
+          ]
+        },
+        {
+          "id": "surgery_general_pediatric_surgery",
+          "label": "Pediatric Surgery",
+          "topics": [
+            "Pyloric Stenosis",
+            "Intussusception",
+            "Malrotation & Volvulus",
+            "Hirschsprung Disease",
+            "Imperforate Anus",
+            "Congenital Diaphragmatic Hernia",
+            "Omphalocele/Gastroschisis",
+            "Esophageal Atresia/TEF",
+            "Necrotizing Enterocolitis",
+            "Inguinal Hernia in Children",
+            "Undescended Testis",
+            "Wilms Tumor",
+            "Neuroblastoma",
+            "Biliary Atresia",
+            "Congenital Lung Lesions"
+          ],
+          "top_journals": [
+            "J Pediatr Surg",
+            "Pediatr Surg Int",
+            "Eur J Pediatr Surg",
+            "Semin Pediatr Surg",
+            "J Pediatr Surg Case Rep",
+            "Surgery",
+            "Ann Surg",
+            "Pediatrics",
+            "JAMA Surg",
+            "World J Surg"
+          ]
+        },
+        {
+          "id": "surgery_general_surgical_critical_care",
+          "label": "Surgical Critical Care",
+          "topics": [
+            "Trauma Resuscitation (ATLS)",
+            "Hemorrhagic Shock Management",
+            "Abdominal Compartment Syndrome",
+            "Open Abdomen Management",
+            "Damage Control Surgery",
+            "Surgical Site Infections",
+            "Anastomotic Leak",
+            "Ventilator-Associated Pneumonia",
+            "Nutrition in Critical Care",
+            "Sepsis in Surgical Patients",
+            "Coagulopathy Correction",
+            "ICU Delirium",
+            "ARDS Management",
+            "Renal Replacement Therapy",
+            "ECMO for Trauma"
+          ],
+          "top_journals": [
+            "J Trauma Acute Care Surg",
+            "Crit Care Med",
+            "Am J Surg",
+            "Surgery",
+            "World J Surg",
+            "Injury",
+            "J Surg Res",
+            "Shock",
+            "Ann Surg",
+            "Intensive Care Med"
+          ]
+        },
+        {
+          "id": "surgery_general_surgical_oncology",
+          "label": "Surgical Oncology",
+          "topics": [
+            "Breast Cancer Surgery (Lumpectomy/Mastectomy)",
+            "Sentinel Lymph Node Biopsy",
+            "Melanoma Wide Excision",
+            "Soft Tissue Sarcoma Resection",
+            "Gastrointestinal Cancer Surgery",
+            "Hepatobiliary Cancer Surgery",
+            "Pancreatic Cancer (Whipple)",
+            "Colorectal Cancer Surgery (TME)",
+            "Peritoneal Carcinomatosis (HIPEC)",
+            "Neoadjuvant/Adjuvant Therapy Sequencing",
+            "Hereditary Cancer Syndromes",
+            "Oncoplastic Surgery",
+            "Multidisciplinary Tumor Boards",
+            "Palliative Surgery",
+            "Surgical Margins"
+          ],
+          "top_journals": [
+            "Ann Surg Oncol",
+            "J Clin Oncol",
+            "Ann Surg",
+            "JAMA Surg",
+            "Br J Surg",
+            "Eur J Surg Oncol",
+            "Cancer",
+            "Surgery",
+            "Lancet Oncol",
+            "J Surg Oncol"
+          ]
+        },
+        {
+          "id": "surgery_general_vascular_surgery",
+          "label": "Vascular Surgery",
+          "topics": [
+            "Abdominal Aortic Aneurysm (Open/EVAR)",
+            "Carotid Endarterectomy/Stenting",
+            "Peripheral Arterial Disease (Bypass/Endovascular)",
+            "Acute Limb Ischemia",
+            "Diabetic Foot & Limb Salvage",
+            "Venous Insufficiency (Ablation)",
+            "Deep Vein Thrombosis",
+            "Mesenteric Ischemia",
+            "Renal Artery Stenosis",
+            "AV Access for Dialysis",
+            "Thoracic Outlet Syndrome",
+            "Aortic Dissection",
+            "Vascular Trauma",
+            "Lymphedema",
+            "Raynaud Phenomenon"
+          ],
+          "top_journals": [
+            "J Vasc Surg",
+            "Eur J Vasc Endovasc Surg",
+            "Ann Vasc Surg",
+            "J Endovasc Ther",
+            "Vasc Endovascular Surg",
+            "Vascular",
+            "Semin Vasc Surg",
+            "Angiology",
+            "Vasc Med",
+            "Catheter Cardiovasc Interv"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "thoracic_surgery",
+      "label": "Thoracic Surgery",
+      "subspecialties": [
+        {
+          "id": "thoracic_surgery_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Lung Cancer Resection (Lobectomy/Pneumonectomy)",
+            "VATS (Video-Assisted Thoracoscopic Surgery)",
+            "Esophageal Cancer (Ivor Lewis/McKeown)",
+            "Mediastinal Mass Resection",
+            "Chest Wall Tumors",
+            "Pleural Effusion & Pleurodesis",
+            "Empyema Drainage (Decortication)",
+            "Tracheal Resection & Reconstruction",
+            "Lung Volume Reduction Surgery",
+            "Lung Transplantation",
+            "Diaphragm Plication",
+            "Pectus Excavatum Repair (Nuss)",
+            "Bronchoscopy (Rigid/Flexible)",
+            "Esophageal Perforation",
+            "Chylothorax"
+          ],
+          "top_journals": [
+            "J Thorac Cardiovasc Surg",
+            "Ann Thorac Surg",
+            "Eur J Cardiothorac Surg",
+            "Interact Cardiovasc Thorac Surg",
+            "Ann Cardiothorac Surg",
+            "Semin Thorac Cardiovasc Surg",
+            "Chest",
+            "Innovations",
+            "J Card Surg",
+            "Asian Cardiovasc Thorac Ann"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "urology",
+      "label": "Urology",
+      "subspecialties": [
+        {
+          "id": "urology_general_core",
+          "label": "General/Core",
+          "topics": [
+            "Benign Prostatic Hyperplasia (TURP/Laser)",
+            "Prostate Cancer Screening & Treatment",
+            "Kidney Stones (ESWL/URS/PCNL)",
+            "Bladder Cancer (TURBT/Cystectomy)",
+            "Testicular Cancer",
+            "Renal Cell Carcinoma (Partial/Radical Nephrectomy)",
+            "Urinary Incontinence (SUI/OAB)",
+            "Erectile Dysfunction",
+            "Vasectomy/Vasectomy Reversal",
+            "Urinary Tract Infections",
+            "Hematuria Workup",
+            "Hydronephrosis",
+            "Varicocele",
+            "Penile Fracture",
+            "Fournier Gangrene"
+          ],
+          "top_journals": [
+            "J Urol",
+            "Eur Urol",
+            "BJU Int",
+            "Urology",
+            "Eur Urol Oncol",
+            "Urol Oncol",
+            "World J Urol",
+            "J Endourol",
+            "Int J Urol",
+            "J Sex Med"
+          ]
+        }
+      ]
+    }
+  ]
+}

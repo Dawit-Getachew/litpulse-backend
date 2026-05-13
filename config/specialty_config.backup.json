@@ -1,0 +1,403 @@
+{
+  "specialties": [
+    {
+      "id": "internal_medicine",
+      "label": "Internal Medicine",
+      "subspecialties": [
+        {
+          "id": "im_general",
+          "label": "General Internal Medicine",
+          "topics": [
+            "Hypertension",
+            "Type 2 diabetes",
+            "Heart failure",
+            "COPD",
+            "Pneumonia",
+            "Urinary tract infections",
+            "Preventive care",
+            "Vaccination"
+          ],
+          "journals": [
+            {"name": "New England Journal of Medicine", "impactFactorApprox": 158.5},
+            {"name": "The Lancet", "impactFactorApprox": 168.9},
+            {"name": "JAMA", "impactFactorApprox": 120.7},
+            {"name": "BMJ", "impactFactorApprox": 93.6},
+            {"name": "Annals of Internal Medicine", "impactFactorApprox": 39.2}
+          ]
+        },
+        {
+          "id": "im_cardiology",
+          "label": "Cardiology",
+          "topics": [
+            "Acute myocardial infarction",
+            "Heart failure",
+            "Atrial fibrillation",
+            "Hypertension",
+            "Coronary artery disease",
+            "Valvular heart disease",
+            "Arrhythmias",
+            "Cardiac imaging"
+          ],
+          "journals": [
+            {"name": "Circulation", "impactFactorApprox": 37.8},
+            {"name": "Journal of the American College of Cardiology", "impactFactorApprox": 24.0},
+            {"name": "European Heart Journal", "impactFactorApprox": 35.8},
+            {"name": "Circulation Research", "impactFactorApprox": 20.1},
+            {"name": "JAMA Cardiology", "impactFactorApprox": 18.9}
+          ]
+        },
+        {
+          "id": "im_critcare",
+          "label": "Critical Care Medicine",
+          "topics": [
+            "Sepsis and septic shock",
+            "ARDS",
+            "Ventilator-associated pneumonia",
+            "Sedation and analgesia",
+            "Acute kidney injury in ICU",
+            "ECMO",
+            "ICU liberation",
+            "Delirium"
+          ],
+          "journals": [
+            {"name": "Lancet Respiratory Medicine", "impactFactorApprox": 38.7},
+            {"name": "Intensive Care Medicine", "impactFactorApprox": 36.1},
+            {"name": "American Journal of Respiratory and Critical Care Medicine", "impactFactorApprox": 24.7},
+            {"name": "Critical Care", "impactFactorApprox": 15.1},
+            {"name": "Chest", "impactFactorApprox": 9.6}
+          ]
+        },
+        {
+          "id": "im_nephrology",
+          "label": "Nephrology",
+          "topics": [
+            "Chronic kidney disease",
+            "Acute kidney injury",
+            "Dialysis",
+            "Kidney transplantation",
+            "Glomerulonephritis",
+            "Hypertension",
+            "Electrolyte disorders"
+          ],
+          "journals": [
+            {"name": "Journal of the American Society of Nephrology", "impactFactorApprox": 13.6},
+            {"name": "Kidney International", "impactFactorApprox": 19.6},
+            {"name": "American Journal of Kidney Diseases", "impactFactorApprox": 10.0},
+            {"name": "Clinical Journal of the American Society of Nephrology", "impactFactorApprox": 8.1},
+            {"name": "Nephrology Dialysis Transplantation", "impactFactorApprox": 6.1}
+          ]
+        },
+        {
+          "id": "im_infectious",
+          "label": "Infectious Diseases",
+          "topics": [
+            "COVID-19",
+            "Antimicrobial resistance",
+            "HIV/AIDS",
+            "Tuberculosis",
+            "Sepsis",
+            "Healthcare-associated infections",
+            "Tropical diseases"
+          ],
+          "journals": [
+            {"name": "Clinical Infectious Diseases", "impactFactorApprox": 20.4},
+            {"name": "The Lancet Infectious Diseases", "impactFactorApprox": 71.4},
+            {"name": "Journal of Infectious Diseases", "impactFactorApprox": 12.7},
+            {"name": "Emerging Infectious Diseases", "impactFactorApprox": 16.8},
+            {"name": "Infection Control and Hospital Epidemiology", "impactFactorApprox": 4.9}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "surgery",
+      "label": "Surgery",
+      "subspecialties": [
+        {
+          "id": "surg_general",
+          "label": "General Surgery",
+          "topics": [
+            "Laparoscopic techniques",
+            "Hernia repair",
+            "Appendectomy",
+            "Cholecystectomy",
+            "Bariatric surgery",
+            "Colorectal surgery",
+            "Trauma surgery"
+          ],
+          "journals": [
+            {"name": "Annals of Surgery", "impactFactorApprox": 13.3},
+            {"name": "JAMA Surgery", "impactFactorApprox": 15.7},
+            {"name": "British Journal of Surgery", "impactFactorApprox": 9.6},
+            {"name": "Journal of the American College of Surgeons", "impactFactorApprox": 7.2},
+            {"name": "Surgery", "impactFactorApprox": 4.3}
+          ]
+        },
+        {
+          "id": "surg_ortho",
+          "label": "Orthopaedic Surgery",
+          "topics": [
+            "Hip fracture",
+            "Knee replacement",
+            "Hip replacement",
+            "Spine surgery",
+            "Sports medicine",
+            "Arthroscopy",
+            "Fracture management"
+          ],
+          "journals": [
+            {"name": "Journal of Bone and Joint Surgery", "impactFactorApprox": 5.3},
+            {"name": "The Lancet Rheumatology", "impactFactorApprox": 24.3},
+            {"name": "Bone & Joint Journal", "impactFactorApprox": 5.4},
+            {"name": "Clinical Orthopaedics and Related Research", "impactFactorApprox": 4.2},
+            {"name": "Journal of Orthopaedic Research", "impactFactorApprox": 3.4}
+          ]
+        },
+        {
+          "id": "surg_neurosurg",
+          "label": "Neurological Surgery",
+          "topics": [
+            "Brain tumor",
+            "Spinal surgery",
+            "Cerebrovascular surgery",
+            "Traumatic brain injury",
+            "Epilepsy surgery",
+            "Deep brain stimulation"
+          ],
+          "journals": [
+            {"name": "Journal of Neurosurgery", "impactFactorApprox": 5.0},
+            {"name": "Neurosurgery", "impactFactorApprox": 5.3},
+            {"name": "World Neurosurgery", "impactFactorApprox": 2.0},
+            {"name": "Acta Neurochirurgica", "impactFactorApprox": 2.9},
+            {"name": "Spine", "impactFactorApprox": 3.2}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pediatrics",
+      "label": "Pediatrics",
+      "subspecialties": [
+        {
+          "id": "ped_general",
+          "label": "General Pediatrics",
+          "topics": [
+            "Well-child care",
+            "Childhood vaccines",
+            "Developmental milestones",
+            "Common childhood illnesses",
+            "Pediatric nutrition",
+            "Behavioral issues"
+          ],
+          "journals": [
+            {"name": "Pediatrics", "impactFactorApprox": 8.0},
+            {"name": "JAMA Pediatrics", "impactFactorApprox": 20.0},
+            {"name": "Journal of Pediatrics", "impactFactorApprox": 4.9},
+            {"name": "Archives of Disease in Childhood", "impactFactorApprox": 4.4},
+            {"name": "Pediatric Research", "impactFactorApprox": 3.8}
+          ]
+        },
+        {
+          "id": "ped_neonatology",
+          "label": "Neonatology",
+          "topics": [
+            "Prematurity",
+            "Respiratory distress syndrome",
+            "Neonatal sepsis",
+            "Hypoxic-ischemic encephalopathy",
+            "Necrotizing enterocolitis",
+            "NICU care"
+          ],
+          "journals": [
+            {"name": "Journal of Perinatology", "impactFactorApprox": 2.9},
+            {"name": "Pediatrics", "impactFactorApprox": 8.0},
+            {"name": "Archives of Disease in Childhood - Fetal and Neonatal Edition", "impactFactorApprox": 4.3},
+            {"name": "Neonatology", "impactFactorApprox": 2.8},
+            {"name": "Early Human Development", "impactFactorApprox": 2.4}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "obgyn",
+      "label": "Obstetrics & Gynecology",
+      "subspecialties": [
+        {
+          "id": "obgyn_general",
+          "label": "General OB/GYN",
+          "topics": [
+            "Prenatal care",
+            "Labor and delivery",
+            "Cesarean section",
+            "Postpartum care",
+            "Contraception",
+            "Menstrual disorders",
+            "Menopause"
+          ],
+          "journals": [
+            {"name": "Obstetrics & Gynecology", "impactFactorApprox": 7.7},
+            {"name": "American Journal of Obstetrics and Gynecology", "impactFactorApprox": 9.8},
+            {"name": "BJOG", "impactFactorApprox": 7.0},
+            {"name": "Human Reproduction", "impactFactorApprox": 6.0},
+            {"name": "Fertility and Sterility", "impactFactorApprox": 6.6}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "emergency",
+      "label": "Emergency Medicine",
+      "subspecialties": [
+        {
+          "id": "em_general",
+          "label": "Emergency Medicine",
+          "topics": [
+            "Trauma management",
+            "Cardiac arrest",
+            "Stroke",
+            "Sepsis",
+            "Respiratory failure",
+            "Pain management",
+            "Toxicology"
+          ],
+          "journals": [
+            {"name": "Annals of Emergency Medicine", "impactFactorApprox": 6.8},
+            {"name": "Academic Emergency Medicine", "impactFactorApprox": 3.6},
+            {"name": "Emergency Medicine Journal", "impactFactorApprox": 3.3},
+            {"name": "Journal of Emergency Medicine", "impactFactorApprox": 2.0},
+            {"name": "Resuscitation", "impactFactorApprox": 6.5}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "psychiatry",
+      "label": "Psychiatry & Neurology",
+      "subspecialties": [
+        {
+          "id": "psy_general",
+          "label": "Psychiatry",
+          "topics": [
+            "Depression",
+            "Anxiety disorders",
+            "Bipolar disorder",
+            "Schizophrenia",
+            "PTSD",
+            "Substance use disorders",
+            "Psychopharmacology"
+          ],
+          "journals": [
+            {"name": "JAMA Psychiatry", "impactFactorApprox": 24.4},
+            {"name": "American Journal of Psychiatry", "impactFactorApprox": 19.6},
+            {"name": "Lancet Psychiatry", "impactFactorApprox": 48.0},
+            {"name": "Molecular Psychiatry", "impactFactorApprox": 12.3},
+            {"name": "Biological Psychiatry", "impactFactorApprox": 12.8}
+          ]
+        },
+        {
+          "id": "neuro_general",
+          "label": "Neurology",
+          "topics": [
+            "Stroke",
+            "Epilepsy",
+            "Multiple sclerosis",
+            "Parkinson's disease",
+            "Alzheimer's disease",
+            "Migraine",
+            "Neuromuscular disorders"
+          ],
+          "journals": [
+            {"name": "Neurology", "impactFactorApprox": 12.3},
+            {"name": "Lancet Neurology", "impactFactorApprox": 59.9},
+            {"name": "JAMA Neurology", "impactFactorApprox": 24.0},
+            {"name": "Annals of Neurology", "impactFactorApprox": 11.2},
+            {"name": "Brain", "impactFactorApprox": 14.5}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "radiology",
+      "label": "Radiology",
+      "subspecialties": [
+        {
+          "id": "rad_general",
+          "label": "Diagnostic Radiology",
+          "topics": [
+            "CT imaging",
+            "MRI",
+            "Ultrasound",
+            "X-ray",
+            "Interventional radiology",
+            "Nuclear medicine",
+            "AI in radiology"
+          ],
+          "journals": [
+            {"name": "Radiology", "impactFactorApprox": 19.7},
+            {"name": "European Radiology", "impactFactorApprox": 5.9},
+            {"name": "Journal of the American College of Radiology", "impactFactorApprox": 5.3},
+            {"name": "AJR American Journal of Roentgenology", "impactFactorApprox": 3.9},
+            {"name": "Radiographics", "impactFactorApprox": 4.7}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oncology",
+      "label": "Oncology",
+      "subspecialties": [
+        {
+          "id": "onc_general",
+          "label": "Medical Oncology",
+          "topics": [
+            "Lung cancer",
+            "Breast cancer",
+            "Colorectal cancer",
+            "Immunotherapy",
+            "Targeted therapy",
+            "Chemotherapy",
+            "Palliative care"
+          ],
+          "journals": [
+            {"name": "Journal of Clinical Oncology", "impactFactorApprox": 50.7},
+            {"name": "Lancet Oncology", "impactFactorApprox": 54.4},
+            {"name": "JAMA Oncology", "impactFactorApprox": 33.3},
+            {"name": "Cancer Discovery", "impactFactorApprox": 38.4},
+            {"name": "Annals of Oncology", "impactFactorApprox": 51.7}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family_med",
+      "label": "Family Medicine",
+      "subspecialties": [
+        {
+          "id": "fm_general",
+          "label": "Family Medicine",
+          "topics": [
+            "Primary care",
+            "Chronic disease management",
+            "Preventive medicine",
+            "Women's health",
+            "Pediatric care",
+            "Geriatric care",
+            "Mental health"
+          ],
+          "journals": [
+            {"name": "Annals of Family Medicine", "impactFactorApprox": 4.9},
+            {"name": "British Journal of General Practice", "impactFactorApprox": 5.3},
+            {"name": "Journal of the American Board of Family Medicine", "impactFactorApprox": 2.8},
+            {"name": "Family Medicine", "impactFactorApprox": 2.1},
+            {"name": "Canadian Family Physician", "impactFactorApprox": 2.2}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "subspecialties": []
+    }
+  ]
+}
