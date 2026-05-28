@@ -1,8 +1,10 @@
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 import logging
 import uuid
+import json
+import re
+import traceback
 from datetime import datetime, timezone
-from emergentintegrations.llm.chat import LlmChat, UserMessage
 import os
 import asyncio
 
@@ -126,7 +128,7 @@ class DeduplicationRankingAgent:
         return score
 
 class SummarizationAgent:
-    """Generate AI summaries for articles using Anthropic Claude"""
+    """Generate AI summaries for articles via the OpenAI SDK."""
     
     def __init__(self):
         self.logger = logging.getLogger(f"{__name__}.SummarizationAgent")
@@ -140,12 +142,13 @@ class SummarizationAgent:
         
         if not self.api_key:
             self.logger.warning("Cannot summarize: OPENAI_API_KEY / EMERGENT_LLM_KEY not configured")
-            # Return articles with placeholder summaries
+            # Return articles with placeholder summaries.
+            # key_findings is List[str] throughout the codebase — never a bare string.
             for article in articles:
                 if not article.get("ai_summary"):
                     article["ai_summary"] = "Summary not available"
                 if not article.get("key_findings"):
-                    article["key_findings"] = "Key findings not available"
+                    article["key_findings"] = []
             return articles
         
         summarized = []
@@ -196,20 +199,25 @@ class SummarizationAgent:
                     article["key_questions"] = ""
                 else:
                     article["ai_summary"] = summary_text
-                    article["key_findings"] = summary_data.get("key_findings", [])
+                    article["key_findings"] = self._coerce_key_findings(summary_data.get("key_findings"))
                     article["population"] = summary_data.get("population", "")
                     article["study_size"] = summary_data.get("study_size", "")
                     article["key_questions"] = summary_data.get("key_questions", "")
-                
+
                 summarized.append(article)
-                
+
                 # Rate limiting
                 await asyncio.sleep(0.5)
-                
+
             except Exception as e:
-                self.logger.error(f"Failed to summarize article {article.get('pmid')}: {str(e)}")
+                # Log full traceback so future provider failures aren't invisible
+                # the way the emergentintegrations NotImplementedError was.
+                self.logger.error(
+                    f"Failed to summarize article {article.get('pmid')}: "
+                    f"{type(e).__name__}: {e}\n{traceback.format_exc()}"
+                )
                 article["ai_summary"] = "Summary generation failed"
-                article["key_findings"] = "Unable to extract key findings"
+                article["key_findings"] = []  # contract: List[str]
                 summarized.append(article)
         
         self.logger.info(f"Summarized {len(summarized)} articles")
@@ -260,12 +268,85 @@ class SummarizationAgent:
             self.logger.warning(f"Re-fetch abstract failed for {pmid}: {type(e).__name__}: {e}")
             return None
     
+    # Models that reject the `temperature` parameter (gpt-5 family, o-series).
+    _NO_TEMPERATURE_MODELS = {
+        "gpt-5", "gpt-5-mini", "gpt-5-nano",
+        "gpt-5.1", "gpt-5.1-mini", "gpt-5.2-mini",
+        "o1", "o1-mini", "o1-preview", "o3", "o3-mini", "o4-mini",
+    }
+
+    # Models that accept `response_format={"type": "json_object"}`.
+    # The 4o family supports it; the 5/o families also do, but we keep an
+    # opt-out env var in case OpenAI tightens this on a specific deployment.
+    _JSON_MODE_SUPPORTED_PREFIXES = ("gpt-4o", "gpt-4.1", "gpt-5", "gpt-4-turbo")
+
+    def _supports_json_mode(self, model: str) -> bool:
+        if os.environ.get("SUMMARY_DISABLE_JSON_MODE", "").lower() in ("1", "true", "yes"):
+            return False
+        return model.startswith(self._JSON_MODE_SUPPORTED_PREFIXES)
+
+    @staticmethod
+    def _coerce_key_findings(value: Any) -> List[str]:
+        """Force key_findings into a List[str].
+
+        Downstream consumers (audio_service.build_audio_script,
+        email_service.send_digest_email, grounded_article_context_service)
+        all assume List[str]. Strings/None/dicts get normalized so a bad LLM
+        response can never poison those callers.
+        """
+        if value is None:
+            return []
+        if isinstance(value, list):
+            return [str(x).strip() for x in value if x is not None and str(x).strip()]
+        if isinstance(value, str):
+            stripped = value.strip()
+            if not stripped:
+                return []
+            # If the model returned a bulleted string, split on newlines/bullets.
+            parts = re.split(r"\s*(?:\r?\n|^\s*[-*•]\s*|\s*;\s*)", stripped)
+            cleaned = [p.strip(" -*•\t") for p in parts if p.strip(" -*•\t")]
+            return cleaned or [stripped]
+        # dict, number, etc. — stringify defensively
+        return [str(value)]
+
+    @staticmethod
+    def _extract_json(text: str) -> Optional[dict]:
+        """Best-effort JSON extraction from a model response."""
+        if not text:
+            return None
+        # 1. Direct parse — works when response_format=json_object is honored.
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+        # 2. Strip Markdown code fences if present.
+        fenced = re.search(r"```(?:json)?\s*(\{[\s\S]*?\})\s*```", text)
+        if fenced:
+            try:
+                return json.loads(fenced.group(1))
+            except json.JSONDecodeError:
+                pass
+        # 3. Greedy match on the first top-level JSON object.
+        brace_match = re.search(r"\{[\s\S]*\}", text)
+        if brace_match:
+            try:
+                return json.loads(brace_match.group(0))
+            except json.JSONDecodeError:
+                return None
+        return None
+
     async def _generate_summary(self, article: Dict) -> Dict:
-        """Generate summary for a single article using GPT-5-mini via emergentintegrations"""
-        
-        import uuid
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        
+        """Generate summary for a single article using the OpenAI SDK directly.
+
+        Replaces the previous emergentintegrations.LlmChat path, which is a
+        local stub that raises NotImplementedError — silently swallowed by the
+        caller and surfaces to users as "Summary generation failed".
+
+        Returns:
+            {"summary": str, "key_findings": List[str]}
+        """
+        from openai import AsyncOpenAI, APIError, APITimeoutError, RateLimitError
+
         system_message = """You are a medical literature summarization assistant for clinicians.
 
 CRITICAL SAFETY AND GROUNDING RULES:
@@ -286,55 +367,90 @@ Return ONLY valid JSON with these two fields:
   "key_findings": ["Finding 1", "Finding 2", "Finding 3"]
 }
 
-The key_findings should be an array of 2-4 bullet points highlighting the most important results.
+The key_findings MUST be a JSON array of 2-4 short strings highlighting the most important results.
 """
-        
-        # Build prompt
+
+        authors_field = article.get("authors")
+        if isinstance(authors_field, list):
+            authors_str = ", ".join(str(a) for a in authors_field) or "Unknown"
+        else:
+            authors_str = str(authors_field or "Unknown")
+
         prompt = f"""Summarize this medical research article:
-        
+
 Title: {article.get('title', 'No title')}
 Journal: {article.get('journal', 'Unknown')}
 Publication Date: {article.get('pub_date', 'Unknown')}
-Authors: {article.get('authors', 'Unknown')}
+Authors: {authors_str}
 
 Abstract:
 {article.get('abstract', 'No abstract available')}
 
-Study Types: {', '.join(article.get('design_tags', []))}
+Study Types: {', '.join(article.get('design_tags', []) or [])}
 
 Provide a JSON response with 'summary' and 'key_findings' fields.
 """
-        
-        summary_model = os.environ.get("SUMMARY_MODEL", "gpt-5-mini")
-        
-        # Use emergentintegrations LlmChat for OpenAI calls
-        chat = LlmChat(
+
+        summary_model = os.environ.get("SUMMARY_MODEL", "gpt-4o-mini")
+        base_url = os.environ.get("OPENAI_BASE_URL") or None  # respect optional proxy
+        timeout = float(os.environ.get("SUMMARY_OPENAI_TIMEOUT", "45"))
+        max_retries = int(os.environ.get("SUMMARY_OPENAI_MAX_RETRIES", "2"))
+
+        client = AsyncOpenAI(
             api_key=self.api_key,
-            session_id=f"summary_{uuid.uuid4().hex[:8]}",
-            system_message=system_message,
-        ).with_model("openai", summary_model)
-        
-        response_text = await chat.send_message(UserMessage(text=prompt))
-        
-        # Parse response
+            base_url=base_url,
+            timeout=timeout,
+            max_retries=max_retries,
+        )
+
+        request_kwargs: Dict[str, Any] = {
+            "model": summary_model,
+            "messages": [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": prompt},
+            ],
+        }
+        if summary_model not in self._NO_TEMPERATURE_MODELS:
+            request_kwargs["temperature"] = 0.3
+        if self._supports_json_mode(summary_model):
+            request_kwargs["response_format"] = {"type": "json_object"}
+
         try:
-            # Try to extract JSON from response
-            import json
-            import re
-            
-            # Look for JSON block
-            json_match = re.search(r'\{[\s\S]*"summary"[\s\S]*"key_findings"[\s\S]*\}', response_text)
-            if json_match:
-                data = json.loads(json_match.group())
-                return {
-                    "summary": data.get("summary", "Summary not available"),
-                    "key_findings": data.get("key_findings", "Key findings not available")
-                }
-        except:
-            pass
-        
-        # Fallback: use the whole response as summary
+            response = await client.chat.completions.create(**request_kwargs)
+        except (APITimeoutError, RateLimitError) as e:
+            self.logger.warning(
+                f"OpenAI transient error for pmid={article.get('pmid')} "
+                f"model={summary_model}: {type(e).__name__}: {e}"
+            )
+            raise
+        except APIError as e:
+            self.logger.error(
+                f"OpenAI APIError for pmid={article.get('pmid')} "
+                f"model={summary_model}: {type(e).__name__}: {e}"
+            )
+            raise
+
+        response_text = (response.choices[0].message.content or "").strip()
+        if not response_text:
+            self.logger.warning(
+                f"Empty OpenAI response for pmid={article.get('pmid')} model={summary_model}"
+            )
+            return {"summary": "Summary not available", "key_findings": []}
+
+        data = self._extract_json(response_text)
+        if data is None:
+            self.logger.warning(
+                f"Could not parse JSON from summary response for pmid={article.get('pmid')}; "
+                f"falling back to plain-text summary."
+            )
+            return {
+                "summary": response_text[:1500],
+                "key_findings": [],
+            }
+
+        summary_text = (data.get("summary") or "").strip() or "Summary not available"
+        key_findings = self._coerce_key_findings(data.get("key_findings"))
         return {
-            "summary": response_text[:500] if len(response_text) > 500 else response_text,
-            "key_findings": "See summary for key findings"
+            "summary": summary_text,
+            "key_findings": key_findings,
         }

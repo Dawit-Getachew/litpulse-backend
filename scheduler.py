@@ -16,6 +16,18 @@ LOCK_RETRY_SECONDS = 120
 PROFILE_DIGEST_FAILURE_BACKOFF_MINUTES = int(
     os.environ.get("PROFILE_DIGEST_FAILURE_BACKOFF_MINUTES", "60")
 )
+# AI summary backfill — sweeps db.articles every N ticks for documents that
+# have a real abstract but no/invalid ai_summary, and regenerates them.
+# Required because search results are saved without summaries (search_v2.py
+# disables inline summarization for latency reasons), and the LitScreen +
+# LitHub views display ai_summary / key_findings.
+SUMMARY_BACKFILL_ENABLED = os.environ.get(
+    "SUMMARY_BACKFILL_ENABLED", "true"
+).lower() in ("1", "true", "yes")
+SUMMARY_BACKFILL_BATCH_SIZE = int(os.environ.get("SUMMARY_BACKFILL_BATCH_SIZE", "20"))
+SUMMARY_BACKFILL_EVERY_N_TICKS = int(
+    os.environ.get("SUMMARY_BACKFILL_EVERY_N_TICKS", "1")
+)
 
 
 class SchedulerAgent:
@@ -29,6 +41,7 @@ class SchedulerAgent:
         self.running = False
         self.task = None
         self.tick_seconds = int(os.environ.get("SCHEDULER_TICK_SECONDS", str(DEFAULT_TICK_SECONDS)))
+        self._backfill_tick_counter = 0
 
     async def start(self):
         """Start the scheduler background task."""
@@ -98,6 +111,7 @@ class SchedulerAgent:
 
                     if self.lock.has_lock:
                         await self._check_and_run_digests()
+                        await self._maybe_backfill_summaries()
 
                     await asyncio.sleep(self.tick_seconds)
                 else:
@@ -118,9 +132,94 @@ class SchedulerAgent:
                     self.logger.error(f"[SCHEDULER] Error in loop: {e}")
                 await asyncio.sleep(self.tick_seconds)
 
+    async def _maybe_backfill_summaries(self):
+        """Backfill missing AI summaries / key findings on db.articles.
+
+        Runs every SUMMARY_BACKFILL_EVERY_N_TICKS ticks. Targets articles that
+        have a usable abstract but no ai_summary (or a placeholder value left
+        over from earlier failures). Capped at SUMMARY_BACKFILL_BATCH_SIZE per
+        sweep to bound LLM cost per tick.
+        """
+        if not SUMMARY_BACKFILL_ENABLED:
+            return
+        self._backfill_tick_counter += 1
+        if self._backfill_tick_counter < max(SUMMARY_BACKFILL_EVERY_N_TICKS, 1):
+            return
+        self._backfill_tick_counter = 0
+
+        try:
+            # Documents needing backfill:
+            #   - abstract present and non-trivial
+            #   - ai_summary absent OR empty OR set to a known placeholder
+            placeholder_regex = {
+                "$regex": "(not available|summary generation failed|see summary for key findings)",
+                "$options": "i",
+            }
+            query = {
+                "abstract": {"$exists": True, "$nin": ["", "No abstract available", "Abstract not available"]},
+                "$or": [
+                    {"ai_summary": {"$exists": False}},
+                    {"ai_summary": None},
+                    {"ai_summary": ""},
+                    {"ai_summary": placeholder_regex},
+                ],
+            }
+            projection = {
+                "_id": 1, "pmid": 1, "title": 1, "abstract": 1,
+                "journal": 1, "pub_date": 1, "authors": 1, "design_tags": 1,
+            }
+            cursor = self.db.articles.find(query, projection).limit(SUMMARY_BACKFILL_BATCH_SIZE)
+            pending = await cursor.to_list(SUMMARY_BACKFILL_BATCH_SIZE)
+            if not pending:
+                return
+
+            from digest_agents import SummarizationAgent
+            summarizer = SummarizationAgent()
+            if not summarizer.api_key:
+                self.logger.warning(
+                    "[SCHEDULER] Summary backfill skipped: OPENAI_API_KEY / EMERGENT_LLM_KEY not set"
+                )
+                return
+
+            self.logger.info(f"[SCHEDULER] Summary backfill sweeping {len(pending)} articles")
+            updated_count = 0
+            for art in pending:
+                pmid = art.get("pmid")
+                try:
+                    summary_data = await summarizer._generate_summary(art)
+                    summary_text = (summary_data.get("summary") or "").strip()
+                    if not summary_text or summarizer._is_no_abstract_response(summary_text):
+                        continue
+                    update_fields = {
+                        "ai_summary": summary_text,
+                        "key_findings": summarizer._coerce_key_findings(
+                            summary_data.get("key_findings")
+                        ),
+                        "updated_at": datetime.now(timezone.utc).isoformat(),
+                    }
+                    await self.db.articles.update_one(
+                        {"_id": art["_id"]},
+                        {"$set": update_fields},
+                    )
+                    updated_count += 1
+                    # Match SummarizationAgent.summarize_articles cadence (rate limiting)
+                    await asyncio.sleep(0.5)
+                except Exception as e:
+                    self.logger.warning(
+                        f"[SCHEDULER] Summary backfill failed for pmid={pmid}: "
+                        f"{type(e).__name__}: {e}"
+                    )
+                    continue
+
+            self.logger.info(
+                f"[SCHEDULER] Summary backfill complete: {updated_count}/{len(pending)} updated"
+            )
+        except Exception as e:
+            self.logger.error(f"[SCHEDULER] Summary backfill loop error: {e}")
+
     async def _check_and_run_digests(self):
         """Check for due digests and run them.
-        
+
         Phase 5: When ENABLE_MULTI_DIGEST_PROFILES=true, runs per digest_profile.
         When flag OFF: legacy behavior (reads from preferences).
         """

@@ -2941,23 +2941,79 @@ async def export_library(
 
 @api_router.get("/articles/{article_id}", response_model=ArticleDetailResponse)
 async def get_article_detail(article_id: str, current_user: dict = Depends(get_current_user)):
-    """Get article detail with user-specific state for deep links"""
+    """Get article detail with user-specific state for deep links.
+
+    Self-healing: if the article has a real abstract but a missing/invalid
+    ai_summary (e.g. it was saved from the search path which deliberately
+    skips inline summarization, or summary generation previously failed
+    because the emergentintegrations stub raised NotImplementedError), we
+    generate the summary on demand and persist it back to db.articles.
+    """
     try:
         user_id = current_user["user_id"]
-        
-        # First try to find by pmid (most common case)
-        article = await db.articles.find_one({"pmid": article_id}, {"_id": 0})
-        
+
+        # Keep _id so we can update the article if we generate a summary.
+        article = await db.articles.find_one({"pmid": article_id})
+
         # If not found by pmid, try by article_id field if it exists
         if not article:
-            article = await db.articles.find_one({"article_id": article_id}, {"_id": 0})
-        
+            article = await db.articles.find_one({"article_id": article_id})
+
         if not article:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Article not found"
             )
-        
+
+        # ---- Lazy AI summary backfill ----
+        abstract = (article.get("abstract") or "").strip()
+        existing_summary = (article.get("ai_summary") or "").strip()
+        # Treat the legacy placeholders as "missing" so they get replaced.
+        invalid_summary = (
+            not existing_summary
+            or "not available" in existing_summary.lower()
+            or existing_summary.lower() in (
+                "summary generation failed",
+                "see summary for key findings",
+            )
+        )
+        abstract_is_real = (
+            abstract
+            and abstract.lower() not in ("no abstract available", "abstract not available")
+        )
+        if abstract_is_real and invalid_summary:
+            try:
+                summarizer = SummarizationAgent()
+                if summarizer.api_key:
+                    summary_data = await summarizer._generate_summary(article)
+                    summary_text = (summary_data.get("summary") or "").strip()
+                    if summary_text and not summarizer._is_no_abstract_response(summary_text):
+                        update_fields = {
+                            "ai_summary": summary_text,
+                            "key_findings": summarizer._coerce_key_findings(
+                                summary_data.get("key_findings")
+                            ),
+                            "updated_at": datetime.now(timezone.utc).isoformat(),
+                        }
+                        await db.articles.update_one(
+                            {"_id": article["_id"]},
+                            {"$set": update_fields},
+                        )
+                        article.update(update_fields)
+                        logger.info(
+                            f"Lazy summary generated for pmid={article.get('pmid')} "
+                            f"via /articles/{{article_id}} detail view."
+                        )
+            except Exception as e:
+                # Never block the detail view on a summary failure.
+                logger.warning(
+                    f"Lazy summary failed for pmid={article.get('pmid')}: "
+                    f"{type(e).__name__}: {e}"
+                )
+
+        # Drop _id before returning — ArticleDetailResponse doesn't include it.
+        article.pop("_id", None)
+
         # Get user-specific state from user_articles
         user_article = await db.user_articles.find_one(
             {"user_id": user_id, "article_id": article.get("pmid") or article_id},
