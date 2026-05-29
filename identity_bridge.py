@@ -62,18 +62,34 @@ async def ensure_mongo_shadow(
     email = (identity_user.get("email") or "").strip().lower()
     now = _now_iso()
 
+    identity_verified = bool(identity_user.get("is_verified", False))
+
     existing = await db.users.find_one({"identity_id": sub})
     if existing:
+        # Keep the Mongo shadow's verification state in sync with Identity, so a
+        # verify-code / password-reset / OTP that verified the email in Identity
+        # is reflected on /auth/me (which reads the shadow).
+        if identity_verified and not existing.get("is_verified"):
+            await db.users.update_one(
+                {"user_id": existing["user_id"]},
+                {"$set": {"is_verified": True, "updated_at": now}},
+            )
+            existing["is_verified"] = True
         return existing
 
     if email:
         by_email = await db.users.find_one({"email": email})
         if by_email:
+            patch: dict[str, Any] = {"identity_id": sub, "updated_at": now}
+            if identity_verified and not by_email.get("is_verified"):
+                patch["is_verified"] = True
             await db.users.update_one(
                 {"user_id": by_email["user_id"]},
-                {"$set": {"identity_id": sub, "updated_at": now}},
+                {"$set": patch},
             )
             by_email["identity_id"] = sub
+            if identity_verified:
+                by_email["is_verified"] = True
             return by_email
 
     new_doc: dict[str, Any] = {

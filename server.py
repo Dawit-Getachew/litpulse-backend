@@ -1135,7 +1135,35 @@ async def verify_email_code(email: str, code: str):
     try:
         email_lower = email.lower()
         now = datetime.now(timezone.utc)
-        
+
+        # ── Identity delegation (Phase 2) ──────────────────────────────
+        # When enabled, the verification code lives in the Identity Service
+        # (it generated + emailed it at signup), so verify there and mirror
+        # is_verified onto the Mongo shadow for /auth/me.
+        from identity_bridge import is_identity_enabled
+        if is_identity_enabled():
+            from identity_client import get_identity_client, IdentityClientError, IdentityUpstreamError
+            try:
+                await get_identity_client().verify_email_code(email_lower, code)
+            except IdentityClientError as exc:
+                detail_text = str(exc.detail) if exc.detail else ""
+                code_key = "code_expired" if "expired" in detail_text.lower() else "invalid_code"
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail={"error_code": code_key, "message": detail_text or "Invalid verification code. Please try again."},
+                )
+            except IdentityUpstreamError:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Identity service unavailable",
+                )
+            await db.users.update_one(
+                {"email": email_lower},
+                {"$set": {"is_verified": True, "email_verified_at": now.isoformat(), "updated_at": now.isoformat()}},
+            )
+            logger.info(f"Email verified via Identity for: {mask_email(email_lower)}")
+            return {"message": "Email verified successfully", "verified": True}
+
         # Find the verification code
         verification = await db.email_verification_codes.find_one({
             "email": email_lower,
@@ -1207,12 +1235,25 @@ async def resend_verification(email: str = None):
                 detail="Email is required"
             )
         
+        # ── Identity delegation (Phase 2) ──────────────────────────────
+        from identity_bridge import is_identity_enabled
+        if is_identity_enabled():
+            from identity_client import get_identity_client, IdentityUpstreamError
+            try:
+                await get_identity_client().resend_verification(email.lower())
+            except IdentityUpstreamError:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Identity service unavailable",
+                )
+            return {"message": "If an account exists with this email, a verification code has been sent."}
+
         user = await db.users.find_one({"email": email.lower()})
-        
+
         if not user:
             # Don't reveal if user exists or not for security
             return {"message": "If an account exists with this email, a verification code has been sent."}
-        
+
         if user.get("is_verified", False):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -1280,10 +1321,24 @@ async def request_password_reset(data: PasswordResetRequest, request: Request):
         
         # Record attempt
         password_reset_limiter.record_attempt(identifier)
-        
+
         email_lower = data.email.lower()
+
+        # ── Identity delegation (Phase 2) ──────────────────────────────
+        # The password lives in Identity, so the reset link + token must be
+        # issued by Identity (LitPulse's own token would not unlock the
+        # Identity-held password). Identity emails the link itself.
+        from identity_bridge import is_identity_enabled
+        if is_identity_enabled():
+            from identity_client import get_identity_client, IdentityUpstreamError
+            try:
+                await get_identity_client().request_password_reset(email_lower)
+            except IdentityUpstreamError:
+                logger.warning("Identity unavailable during password-reset request")
+            return {"message": "If the email exists, a password reset link has been sent"}
+
         user = await db.users.find_one({"email": email_lower})
-        
+
         # Always return success to prevent email enumeration
         if user:
             # Generate reset token
@@ -1308,10 +1363,32 @@ async def request_password_reset(data: PasswordResetRequest, request: Request):
 async def reset_password(data: PasswordResetConfirm):
     """Reset password using token (single-use)"""
     try:
-        # Decode reset token
+        # ── Identity delegation (Phase 2) ──────────────────────────────
+        # The reset token was issued by Identity; reset there (Identity also
+        # marks the email verified on success). The Mongo shadow's verified
+        # state is synced on the user's next login via ensure_mongo_shadow.
+        from identity_bridge import is_identity_enabled
+        if is_identity_enabled():
+            from identity_client import get_identity_client, IdentityClientError, IdentityUpstreamError
+            try:
+                await get_identity_client().reset_password(data.token, data.new_password)
+            except IdentityClientError as exc:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail=str(exc.detail) if exc.detail else "Invalid or expired reset link.",
+                )
+            except IdentityUpstreamError:
+                raise HTTPException(
+                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                    detail="Identity service unavailable",
+                )
+            logger.info("Password reset successful via Identity")
+            return {"message": "Password reset successfully"}
+
+        # Decode reset token (legacy Mongo path)
         payload = decode_token(data.token, "password_reset")
         user_id = payload.get("user_id")
-        
+
         # Single-use check — must be BEFORE state change
         from utils.token_invalidation import check_and_mark_token_used
         await check_and_mark_token_used(
@@ -1320,24 +1397,26 @@ async def reset_password(data: PasswordResetConfirm):
             user_id=user_id or "",
             expires_at=datetime.now(timezone.utc).isoformat(),
         )
-        
-        # Update password
+
+        # Update password. Completing a reset proves email ownership, so the
+        # account is marked verified at the same time.
         result = await db.users.update_one(
             {"user_id": user_id},
             {
                 "$set": {
                     "hashed_password": hash_password(data.new_password),
+                    "is_verified": True,
                     "updated_at": datetime.now(timezone.utc).isoformat()
                 }
             }
         )
-        
+
         if result.modified_count == 0:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="User not found"
             )
-        
+
         logger.info(f"Password reset successful for user: {user_id}")
         return {"message": "Password reset successfully"}
         
