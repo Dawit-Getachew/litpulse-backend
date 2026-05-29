@@ -716,7 +716,42 @@ async def signup(data: SignupRequest, request: Request):
                     detail={"error_code": "invalid_invite", "message": "Invalid or already-used invite code."}
                 )
             beta_status = await determine_beta_status(db)
-        
+
+        # ── Identity Service delegation (Phase 2) ──────────────────────
+        # When enabled, the Identity Service owns the account (single sign-on
+        # across LitPulse + LitPortal). LitPulse keeps a Mongo shadow doc so
+        # all the existing trial/capability/beta features keep working. The
+        # returned UserResponse shape is identical to the legacy path.
+        from identity_bridge import identity_signup, is_identity_enabled
+        if is_identity_enabled():
+            shadow = await identity_signup(
+                db,
+                email=data.email,
+                password=data.password,
+                full_name=data.full_name,
+                timezone_str=data.timezone,
+                invite_code=invite_code,
+                practice_profile=(
+                    data.practice_profile.model_dump(exclude_none=True)
+                    if data.practice_profile else None
+                ),
+            )
+            if is_beta_enabled() and invite_code:
+                await mark_invite_used(db, invite_code, shadow["user_id"])
+            from utils.event_tracker import track_event as _track_signup
+            await _track_signup("signup", shadow["user_id"], {"beta_status": beta_status})
+            return UserResponse(
+                user_id=shadow["user_id"],
+                email=shadow["email"],
+                full_name=shadow.get("full_name"),
+                is_verified=shadow.get("is_verified", False),
+                is_active=shadow.get("is_active", True),
+                timezone=shadow.get("timezone", "UTC"),
+                created_at=shadow["created_at"],
+                updated_at=shadow["updated_at"],
+            )
+
+        # ── Legacy Mongo signup path ───────────────────────────────────
         # Check if email already exists
         email_lower = data.email.lower()
         existing_user = await db.users.find_one({"email": email_lower})
@@ -834,36 +869,49 @@ async def login(data: LoginRequest, request: Request):
         # Failures count toward rate limit; success clears the counter
         login_limiter.record_attempt(identifier)
         
-        # Find user by email
+        # ── Identity Service delegation (Phase 2) ──────────────────────
+        # When enabled, authenticate against the Identity Service and return
+        # its RS256 token, so the SAME token also validates on LitPortal
+        # (single sign-on). A legacy Mongo-only user is transparently migrated
+        # into Identity on first sign-in. The Mongo shadow keeps capability /
+        # trial computation working below, unchanged.
+        from identity_bridge import identity_login, is_identity_enabled
         email_lower = data.email.lower()
-        user = await db.users.find_one({"email": email_lower})
-        
-        if not user:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail={"error_code": "account_not_found", "message": "Account does not exist. Please sign up."}
+        if is_identity_enabled():
+            user, access_token = await identity_login(
+                db, email=data.email, password=data.password,
             )
-        
-        # Verify password
-        if not verify_password(data.password, user["hashed_password"]):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail={"error_code": "wrong_password", "message": "Incorrect password. Please try again or reset your password."}
-            )
-        
-        # Successful login — clear rate limit counter
-        login_limiter.record_attempt(identifier, success=True)
-        
-        # Check if user is active
+            login_limiter.record_attempt(identifier, success=True)
+        else:
+            # ── Legacy Mongo login path ────────────────────────────────
+            user = await db.users.find_one({"email": email_lower})
+
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail={"error_code": "account_not_found", "message": "Account does not exist. Please sign up."}
+                )
+
+            # Verify password
+            if not verify_password(data.password, user["hashed_password"]):
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail={"error_code": "wrong_password", "message": "Incorrect password. Please try again or reset your password."}
+                )
+
+            # Successful login — clear rate limit counter
+            login_limiter.record_attempt(identifier, success=True)
+
+            # Create access token (email claim is consumed by the Portal Engine
+            # cross-service auth bridge — Week-1 LitPulse + LitPortal merger).
+            access_token = create_access_token(user["user_id"], email=user.get("email"))
+
+        # Check if user is active (applies to both auth paths)
         if not user.get("is_active", True):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Account is inactive"
             )
-        
-        # Create access token (email claim is consumed by the Portal Engine
-        # cross-service auth bridge — Week-1 LitPulse + LitPortal merger).
-        access_token = create_access_token(user["user_id"], email=user.get("email"))
 
         # Track login event
         from utils.event_tracker import track_event
@@ -2018,6 +2066,21 @@ async def get_library(
     try:
         from typing import Tuple
         user_id = current_user["user_id"]
+
+        # ── Central LitHub read (Phase 2) ──────────────────────────────
+        # When enabled, LitHub is the canonical cross-app store — reading from
+        # it makes papers the user saved on LitPortal appear here too. Returns
+        # None (falls through to the Mongo path) when LitHub is disabled, the
+        # user has no Identity id yet, or LitHub is unreachable.
+        from lithub_bridge import read_library_from_lithub
+        _lithub_result = await read_library_from_lithub(
+            db, user_id,
+            limit=limit, cursor=cursor, search=search, design_type=design_type,
+            saved_after=saved_after, sort_by=sort_by, sort_dir=sort_dir,
+        )
+        if _lithub_result is not None:
+            return _lithub_result
+
         effective_limit = limit if limit and limit > 0 else 50
         effective_sort_by = sort_by if sort_by in ("saved_at", "title", "journal") else "saved_at"
         effective_sort_dir = -1 if (sort_dir or "desc") == "desc" else 1
@@ -2445,7 +2508,13 @@ async def save_to_library(
             },
             upsert=True,
         )
-        
+
+        # Mirror the save into the central LitHub library (best-effort, keyed
+        # by the user's Identity sub) so it is visible cross-app in LitPortal.
+        # A LitHub failure never breaks this Mongo-backed response.
+        from lithub_bridge import mirror_save_to_lithub
+        await mirror_save_to_lithub(db, current_user["user_id"], payload)
+
         # Track article save event
         try:
             from utils.event_tracker import track_event

@@ -167,19 +167,59 @@ def create_password_reset_token(user_id: str) -> str:
     return encoded_jwt
 
 def decode_token(token: str, expected_type: str) -> dict:
-    """Decode and verify a JWT token"""
+    """Decode and verify a JWT token.
+
+    Validation strategy during the Identity Service cutover:
+
+      1. For ``access`` tokens, try the Identity Service path first (RS256,
+         verified against the cached JWKS). When the token carries an
+         Identity-shaped header (``alg=RS256`` + ``kid``), we MUST succeed
+         here or fail loudly — we never silently fall through to HS256 for
+         an Identity-shaped token, because that would let an attacker
+         downgrade signature algorithms.
+
+      2. Fall back to the legacy LitPulse HS256 path so existing sessions
+         and any code that still mints tokens via ``create_access_token``
+         keep working.
+
+    Identity-issued tokens are translated to the legacy ``{user_id, type,
+    email, ...}`` shape so downstream code that reads ``payload["user_id"]``
+    keeps working unchanged. The ``_identity=True`` marker lets callers that
+    care (``get_current_user`` does) distinguish so they can do legacy-row
+    resolution against the Mongo store.
+    """
+    # 1. Identity Service path — only for "access" tokens. Identity does not
+    # issue LitPulse-specific verification or password-reset tokens.
+    if expected_type == "access":
+        try:
+            from identity_client import decode_identity_access_token
+            identity_payload = decode_identity_access_token(token)
+        except Exception as exc:  # noqa: BLE001  — import or fetch failure
+            logger.warning(f"Identity decode unavailable: {exc}")
+            identity_payload = None
+
+        if identity_payload is not None:
+            return {
+                "user_id": identity_payload.get("sub"),
+                "email": identity_payload.get("email"),
+                "type": "access",
+                "iss": identity_payload.get("iss"),
+                "_identity": True,
+            }
+
+    # 2. Legacy LitPulse HS256 path.
     try:
         payload = jwt.decode(token, _get_jwt_secret(), algorithms=[JWT_ALGORITHM])
         token_type = payload.get("type")
-        
+
         if token_type != expected_type:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail=f"Invalid token type. Expected {expected_type}, got {token_type}"
             )
-        
+
         return payload
-        
+
     except JWTError as e:
         logger.error(f"JWT decode error: {str(e)}")
         raise HTTPException(
@@ -206,9 +246,59 @@ def _is_path_in_allowlist(path: str) -> bool:
     return False
 
 
+async def _resolve_identity_user_to_mongo(payload: dict) -> str | None:
+    """Resolve a Mongo ``user_id`` from an Identity-issued token payload.
+
+    Returns the legacy LitPulse uuid-string ``user_id`` so downstream Mongo
+    queries (which all key on ``user_id``) keep working unchanged. Resolution
+    precedence:
+
+      1. ``identity_id`` already linked on the Mongo row (fastest, common path
+         after the first contact).
+      2. Email match — lazily link by stamping the ``identity_id`` for
+         next time.
+      3. No match — surface the Identity UUID as the user_id so per-endpoint
+         provisioning code can create a Mongo row on demand.
+    """
+    if _db is None:
+        return payload.get("user_id")
+
+    identity_id = payload.get("user_id")
+    email = (payload.get("email") or "").strip().lower()
+
+    if identity_id:
+        existing = await _db.users.find_one(
+            {"identity_id": identity_id},
+            {"_id": 0, "user_id": 1},
+        )
+        if existing and existing.get("user_id"):
+            return existing["user_id"]
+
+    if email:
+        matched = await _db.users.find_one(
+            {"email": email},
+            {"_id": 0, "user_id": 1, "identity_id": 1},
+        )
+        if matched and matched.get("user_id"):
+            if not matched.get("identity_id"):
+                try:
+                    await _db.users.update_one(
+                        {"user_id": matched["user_id"]},
+                        {"$set": {"identity_id": identity_id}},
+                    )
+                except Exception as exc:  # noqa: BLE001  — link is best-effort
+                    logger.warning(
+                        f"Failed to link identity_id={identity_id} onto Mongo "
+                        f"user_id={matched['user_id']}: {exc}",
+                    )
+            return matched["user_id"]
+
+    return identity_id
+
+
 async def get_current_user(authorization: str = Header(None)) -> dict:
     """Get current user from Authorization header. Blocks suspended users.
-    
+
     Phase SEC-A: When REQUIRE_EMAIL_VERIFIED_FOR_APP_ACCESS=true, also blocks
     unverified users from accessing protected endpoints (except allowlist).
     """
@@ -218,7 +308,7 @@ async def get_current_user(authorization: str = Header(None)) -> dict:
             detail="Authorization header missing",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     # Parse Bearer token
     parts = authorization.split()
     if len(parts) != 2 or parts[0].lower() != "bearer":
@@ -227,11 +317,18 @@ async def get_current_user(authorization: str = Header(None)) -> dict:
             detail="Invalid authorization header format. Use: Bearer <token>",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     token = parts[1]
     payload = decode_token(token, "access")
-    user_id = payload.get("user_id")
-    
+
+    # Identity tokens carry the Identity UUID in ``user_id``. Resolve to the
+    # LitPulse Mongo user_id so all downstream Mongo queries keep working
+    # unchanged. Legacy HS256 tokens already carry the Mongo user_id directly.
+    if payload.get("_identity"):
+        user_id = await _resolve_identity_user_to_mongo(payload)
+    else:
+        user_id = payload.get("user_id")
+
     # Check if user is suspended (if db is available)
     if _db is not None:
         user = await _db.users.find_one(
