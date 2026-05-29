@@ -251,9 +251,16 @@ class PubMedSearchAgent:
             if article_node is None:
                 return None
             
-            # Title
+            # Title — use itertext() so titles that contain inline markup
+            # (<i>, <sub>, <sup>, <b> — common for gene/species names and
+            # chemical formulae) are captured in full. ElementTree's .text only
+            # returns the characters BEFORE the first child element, so a title
+            # beginning with markup would otherwise come back as None/truncated
+            # and the paper would be stored (and shown) as "Untitled".
             title_elem = article_node.find(".//ArticleTitle")
-            title = title_elem.text if title_elem is not None else "No title"
+            title = "".join(title_elem.itertext()).strip() if title_elem is not None else ""
+            if not title:
+                title = "No title"
             
             # Journal
             journal_elem = article_node.find(".//Journal/Title")

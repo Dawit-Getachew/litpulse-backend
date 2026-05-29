@@ -2171,13 +2171,13 @@ async def get_library(
 
         user_articles = await db.user_articles.find(
             ua_base_filter,
-            {"_id": 0, "article_id": 1, "saved_at": 1, "folder": 1}
+            {"_id": 0, "article_id": 1, "saved_at": 1, "folder": 1, "pmid": 1, "doi": 1}
         ).to_list(5000)
 
         if not user_articles:
             return {"articles": [], "total": 0, "next_cursor": None}
 
-        # --- 2. Fetch corresponding articles ---
+        # --- 2. Fetch corresponding articles (canonical metadata source) ---
         article_ids = [ObjectId(ua["article_id"]) for ua in user_articles if ObjectId.is_valid(ua["article_id"])]
         articles_raw = await db.articles.find(
             {"_id": {"$in": article_ids}}
@@ -2190,13 +2190,50 @@ async def get_library(
             art.pop("_id", None)
             art_by_id[aid] = art
 
+        # The user's own db.library copy always carries the title supplied/
+        # resolved at save time. Use it as a fallback so (a) a row whose
+        # article_id is a legacy non-ObjectId value is not silently dropped
+        # (the "only one paper shows up" symptom), and (b) a blank db.articles
+        # title is healed on read (the "Untitled" symptom).
+        lib_by_key: dict = {}
+        for lib in await db.library.find({"user_id": user_id}).to_list(5000):
+            if lib.get("pmid"):
+                lib_by_key[("pmid", str(lib["pmid"]))] = lib
+            if lib.get("doi"):
+                lib_by_key[("doi", str(lib["doi"]).strip().lower())] = lib
+
+        def _lib_for(ua_row: dict):
+            if ua_row.get("pmid") and ("pmid", str(ua_row["pmid"])) in lib_by_key:
+                return lib_by_key[("pmid", str(ua_row["pmid"]))]
+            if ua_row.get("doi") and ("doi", str(ua_row["doi"]).strip().lower()) in lib_by_key:
+                return lib_by_key[("doi", str(ua_row["doi"]).strip().lower())]
+            return None
+
         # --- 3. Merge user_articles + articles, apply filters ---
         merged = []
         for ua in user_articles:
             aid = str(ua["article_id"])
             art = art_by_id.get(aid)
-            if not art:
-                continue
+            lib = _lib_for(ua)
+            if art is None:
+                # Legacy/unresolvable article_id — rebuild a minimal record from
+                # the user's library copy so the paper is not lost on read.
+                if lib is None:
+                    continue
+                art = {
+                    "pmid": lib.get("pmid"),
+                    "doi": lib.get("doi"),
+                    "title": lib.get("title") or "",
+                    "abstract": lib.get("abstract") or "",
+                    "journal": lib.get("journal") or "",
+                    "authors": lib.get("authors") or [],
+                    "pub_date": lib.get("pub_date"),
+                    "ai_summary": lib.get("ai_summary") or "",
+                    "design_tags": lib.get("design_tags") or [],
+                }
+            elif not (art.get("title") or "").strip() and lib and (lib.get("title") or "").strip():
+                # Heal a blank canonical title from the user's library copy.
+                art["title"] = lib["title"]
             # Attach user_article metadata
             art["saved_at"] = ua.get("saved_at")
             art["folder"] = ua.get("folder")
@@ -2445,7 +2482,10 @@ async def save_to_library(
                         article_doc = {
                             "pmid": pmid_value,
                             "doi": (article_data.get("doi") or doi_value or ""),
-                            "title": article_data.get("title", payload.title or ""),
+                            # Empty-aware: a present-but-empty title from the
+                            # fetch must fall through to the payload, not be
+                            # persisted as "".
+                            "title": (article_data.get("title") or payload.title or "").strip(),
                             "abstract": article_data.get("abstract", ""),
                             "journal": article_data.get("journal", payload.journal or ""),
                             "pub_date": article_data.get("pub_date", ""),
@@ -2491,11 +2531,38 @@ async def save_to_library(
                 article["_id"] = result.inserted_id
 
         article_id = str(article["_id"])
+
+        # Heal a previously-cached article whose title was lost to the old,
+        # markup-unaware PubMed parser. The Library list reads the title from
+        # db.articles, so a blank title there shows as "Untitled" even though
+        # the paper is a valid PubMed record. Re-fetch by PMID and backfill.
+        if pmid_value and not (article.get("title") or "").strip():
+            try:
+                from agents import PubMedSearchAgent
+                refetched = await PubMedSearchAgent().fetch_by_pmids([pmid_value])
+                healed_title = (refetched[0].get("title") if refetched else "") or ""
+                healed_title = healed_title.strip()
+                if healed_title and healed_title.lower() != "no title":
+                    await db.articles.update_one(
+                        {"_id": article["_id"]},
+                        {"$set": {
+                            "title": healed_title,
+                            "journal": article.get("journal") or (refetched[0].get("journal", "") if refetched else ""),
+                            "abstract": article.get("abstract") or (refetched[0].get("abstract", "") if refetched else ""),
+                        }},
+                    )
+                    article["title"] = healed_title
+            except Exception as _heal_exc:  # best-effort; never block the save
+                logger.warning("title_heal_refetch_failed pmid=%s: %s", pmid_value, _heal_exc)
+
         # Refresh canonical pmid/doi from the resolved doc so dedup keys are
         # stable even when the caller supplied only one identifier.
         canonical_pmid = article.get("pmid") or pmid_value
         canonical_doi = (article.get("doi") or doi_value or "").strip().lower() or None
         now = datetime.now(timezone.utc).isoformat()
+        # The title shown in the Library — empty-aware fallback chain that treats
+        # "" as missing (db.articles title → payload title).
+        resolved_title = (article.get("title") or payload.title or "").strip()
 
         # ------------------------------------------------------------------
         # db.library upsert — keyed by (user_id, pmid) when present, else (user_id, doi).
@@ -2527,9 +2594,9 @@ async def save_to_library(
                 "user_id": current_user["user_id"],
                 "pmid": canonical_pmid,
                 "doi": canonical_doi,
-                "title": article.get("title", payload.title or ""),
+                "title": resolved_title,
                 "abstract": article.get("abstract", ""),
-                "journal": article.get("journal", payload.journal or ""),
+                "journal": article.get("journal") or payload.journal or "",
                 "authors": article.get("authors", ""),
                 "pub_date": article.get("pub_date"),
                 "ai_summary": article.get("ai_summary", ""),
@@ -2545,6 +2612,10 @@ async def save_to_library(
                 "updated_at": now,
                 **{k: v for k, v in canonical_extras.items() if v is not None},
             }
+            # Backfill a title that was previously stored blank (e.g. saved
+            # before metadata resolved) now that we have a real one.
+            if resolved_title and not (existing_lib.get("title") or "").strip():
+                update_fields["title"] = resolved_title
             await db.library.update_one(lib_filter, {"$set": update_fields})
 
         # ------------------------------------------------------------------
@@ -2590,9 +2661,30 @@ async def save_to_library(
 
         # Mirror the save into the central LitHub library (best-effort, keyed
         # by the user's Identity sub) so it is visible cross-app in LitPortal.
+        # Pass the RESOLVED metadata (real title/journal/authors) rather than
+        # the thin request payload so the cross-app copy is not "Untitled".
         # A LitHub failure never breaks this Mongo-backed response.
+        mirror_entry = {
+            "pmid": canonical_pmid,
+            "doi": canonical_doi,
+            "title": resolved_title,
+            "abstract": article.get("abstract", ""),
+            "journal": article.get("journal") or payload.journal or "",
+            "authors": article.get("authors"),
+            "pub_date": article.get("pub_date"),
+            "ai_summary": article.get("ai_summary", ""),
+            "design_tags": article.get("design_tags") or payload.publication_type or [],
+            "folder": payload.folder,
+            "full_text_status": payload.full_text_status,
+            "best_full_text_url": payload.best_full_text_url,
+            "recommended": payload.recommended,
+            "selected": payload.selected,
+            "source": payload.source or "search",
+            "answer_context_id": payload.answer_context_id,
+            "portal_engine_record_id": payload.portal_engine_record_id,
+        }
         from lithub_bridge import mirror_save_to_lithub
-        await mirror_save_to_lithub(db, current_user["user_id"], payload)
+        await mirror_save_to_lithub(db, current_user["user_id"], payload, library_entry=mirror_entry)
 
         # Track article save event
         try:

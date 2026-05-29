@@ -73,12 +73,16 @@ class MockTTSProvider:
 
 
 # ---------------------------------------------------------------------------
-# OpenAI TTS provider (real speech via emergentintegrations)
+# OpenAI TTS provider (real speech via the official openai SDK)
 # ---------------------------------------------------------------------------
 
 class OpenAITTSProvider:
     def __init__(self):
-        self.api_key = os.environ.get("EMERGENT_LLM_KEY") or os.environ.get("OPENAI_API_KEY")
+        # Prefer the real OpenAI key for the DIRECT api.openai.com call. The
+        # legacy EMERGENT_LLM_KEY only worked via the (now-removed) Emergent
+        # proxy and is NOT a valid OpenAI key, so it must not be used here.
+        self.api_key = os.environ.get("OPENAI_API_KEY") or os.environ.get("EMERGENT_LLM_KEY")
+        self.base_url = os.environ.get("OPENAI_TTS_BASE_URL") or os.environ.get("OPENAI_BASE_URL") or None
         self.model = os.environ.get("OPENAI_TTS_MODEL", "tts-1")
         self.default_voice = os.environ.get("OPENAI_TTS_VOICE", "nova")
         self.fmt = os.environ.get("OPENAI_TTS_FORMAT", "mp3")
@@ -89,17 +93,32 @@ class OpenAITTSProvider:
 
         use_voice = voice if voice != "default" else self.default_voice
 
-        # Truncate to 4096 chars (OpenAI limit)
+        # Truncate to 4096 chars (OpenAI TTS input limit)
         truncated = text[:4096]
 
-        from emergentintegrations.llm.openai import OpenAITextToSpeech
-        tts_client = OpenAITextToSpeech(api_key=self.api_key)
-        audio_bytes = await tts_client.generate_speech(
-            text=truncated,
+        # Call OpenAI's Text-to-Speech directly via the official SDK. (The
+        # previous emergentintegrations.llm.openai.OpenAITextToSpeech import
+        # pointed at a private package that isn't vendored here, which made
+        # every generation fail with a swallowed ModuleNotFoundError.)
+        from openai import AsyncOpenAI
+
+        client_kwargs = {"api_key": self.api_key}
+        if self.base_url:
+            client_kwargs["base_url"] = self.base_url
+        client = AsyncOpenAI(**client_kwargs)
+
+        response = await client.audio.speech.create(
             model=self.model,
             voice=use_voice,
+            input=truncated,
             response_format=self.fmt,
         )
+        # openai 1.x returns a binary response object; .content is the bytes.
+        audio_bytes = getattr(response, "content", None)
+        if audio_bytes is None and hasattr(response, "read"):
+            audio_bytes = await response.read() if callable(getattr(response, "read", None)) else None
+        if not audio_bytes:
+            raise RuntimeError("tts_empty_response")
 
         content_type = "audio/mpeg" if self.fmt == "mp3" else f"audio/{self.fmt}"
         # Estimate duration (~150 words/min, ~5 chars/word)
@@ -376,13 +395,18 @@ class AudioService:
                 }},
             )
         except Exception as e:
-            logger.error("Audio generation failed for pmid=%s: %s", pmid, type(e).__name__)
+            # Log the real exception (type + message + traceback) so failures
+            # are diagnosable. Store a short, non-secret detail on the record.
+            logger.error(
+                "Audio generation failed for pmid=%s: %s: %s",
+                pmid, type(e).__name__, str(e), exc_info=True,
+            )
             await self.db.article_audio_summaries.update_one(
                 {"pmid": pmid, "voice": voice, "text_hash": t_hash},
                 {"$set": {
                     "status": "failed",
                     "error_code": "generation_failed",
-                    "error_message": "Generation failed",
+                    "error_message": f"{type(e).__name__}: {str(e)[:300]}",
                     "updated_at": datetime.now(timezone.utc).isoformat(),
                 }},
             )

@@ -80,8 +80,16 @@ def _library_doc_to_item(entry: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-async def mirror_save_to_lithub(db: Any, user_id: str, payload: Any) -> None:
-    """Best-effort mirror of a single save into LitHub. Never raises."""
+async def mirror_save_to_lithub(
+    db: Any, user_id: str, payload: Any, library_entry: dict[str, Any] | None = None,
+) -> None:
+    """Best-effort mirror of a single save into LitHub. Never raises.
+
+    Prefers ``library_entry`` (the RESOLVED article metadata written to
+    db.library — carries the real title/journal/authors after PubMed
+    enrichment) over the raw request ``payload`` (which for a query-param save
+    has no title), so the cross-app copy is not stored as "Untitled".
+    """
     if not _lithub_configured():
         return
     if not (is_lithub_enabled() or is_dual_write_lithub_enabled()):
@@ -95,7 +103,8 @@ async def mirror_save_to_lithub(db: Any, user_id: str, payload: Any) -> None:
         return
     try:
         client = get_lithub_client()
-        await client.internal_save_paper(identity_user_id, _payload_to_item(payload))
+        item = _library_doc_to_item(library_entry) if library_entry else _payload_to_item(payload)
+        await client.internal_save_paper(identity_user_id, item)
     except Exception as exc:  # noqa: BLE001
         # Mongo already has the save; the LitHub mirror is strictly best-effort
         # during cutover and must never break the user-facing save response.
